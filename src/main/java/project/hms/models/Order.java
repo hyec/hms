@@ -1,56 +1,68 @@
 package project.hms.models;
 
-public class Order {
+import project.hms.models.enums.OrderStatus;
 
-    private int id;
-    private int ownerId;
-    private int roomStatus;
-    private float orderPrice;
+import javax.persistence.*;
+import java.util.Set;
 
-    public int getId() {
-        return id;
+@Entity
+@Table(name = "orders")
+public class Order extends Base {
+
+    @ManyToOne
+    private Room room;
+
+    @ManyToOne
+    private User owner;
+
+    @Column(nullable = false)
+    private float price;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private OrderStatus status;
+
+    @ManyToMany
+    @JoinTable(name = "stays")
+    private Set<User> stays;
+
+    public Room getRoom() {
+        return room;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public int getRoomStatus() {
-        return roomStatus;
+    public float getPrice() {
+        return price;
     }
 
-    public void setRoomStatus(int roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setOrderPrice(float orderPrice) {
-        this.orderPrice = orderPrice;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Order order = (Order) o;
-
-        return id == order.id;
+    public Set<User> getStays() {
+        return stays;
     }
 
-    @Override
-    public int hashCode() {
-        return id;
+    public void setStays(Set<User> stays) {
+        this.stays = stays;
     }
 }

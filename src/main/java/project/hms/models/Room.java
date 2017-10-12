@@ -1,26 +1,33 @@
 package project.hms.models;
 
-public class Room {
+import project.hms.models.enums.RoomStatus;
+import project.hms.models.enums.RoomType;
 
-    private int id;
-    private int price;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "rooms")
+public class Room extends Base {
+
+    @Column(nullable = false)
+    private float price;
+
+    @Column(unique = true, nullable = false)
     private int number;
-    private int type;
-    private int status;
 
-    public int getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private RoomType type;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private RoomStatus status;
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -32,34 +39,19 @@ public class Room {
         this.number = number;
     }
 
-    public int getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 
-    public int getStatus() {
+    public RoomStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(RoomStatus status) {
         this.status = status;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Room room = (Room) o;
-
-        return id == room.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
     }
 }

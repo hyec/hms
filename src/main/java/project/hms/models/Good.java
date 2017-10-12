@@ -1,17 +1,28 @@
 package project.hms.models;
 
-public class Good {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-    private int id;
-    private float price;
+@Entity
+@Table(name = "goods")
+public class Good extends Base {
+
+    @Column(length = 64, nullable = false)
     private String name;
 
-    public int getId() {
-        return id;
+    @Column(nullable = false)
+    private float price = 0;
+
+    @Column(length = 512)
+    private String description;
+
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getPrice() {
@@ -22,27 +33,11 @@ public class Good {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Good good = (Good) o;
-
-        return id == good.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
-
 }

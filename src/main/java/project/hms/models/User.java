@@ -1,22 +1,33 @@
 package project.hms.models;
 
-public class User {
+import project.hms.models.enums.Gender;
 
-    private int id;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
+public class User extends Base {
+
+    @Column(length = 64, unique = true, nullable = false)
     private String username;
+
+    @Column(length = 64, nullable = false)
     private String password;
+
+    @Column(length = 64)
     private String name;
-    private int gender;
-    private int idNum;
-    private int integration;
 
-    public int getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private Gender gender;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(length = 18, unique = true, nullable = false)
+    private String idNum;
+
+    private int integration = 0;
+
+    @OneToOne(mappedBy = "user")
+    private Employee employee;
 
     public String getUsername() {
         return username;
@@ -42,19 +53,19 @@ public class User {
         this.name = name;
     }
 
-    public int getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    public int getIdNum() {
+    public String getIdNum() {
         return idNum;
     }
 
-    public void setIdNum(int idNum) {
+    public void setIdNum(String idNum) {
         this.idNum = idNum;
     }
 
@@ -66,18 +77,11 @@ public class User {
         this.integration = integration;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return id == user.id;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    @Override
-    public int hashCode() {
-        return id;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
