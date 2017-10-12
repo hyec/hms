@@ -7,12 +7,23 @@ import java.util.Set;
 @Table(name = "gorders")
 public class GoodOrder extends Base {
 
+    @ManyToOne
+    private User owner;
+
     @Column(nullable = false)
     private float cost;
 
     @OneToMany()
     @JoinColumn(name = "gorder_id")
     private Set<GoodInclude> gincludes;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public float getCost() {
         return cost;

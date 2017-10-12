@@ -10,6 +10,7 @@ public class Employee extends Base {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @Column(unique = true)
     private User user;
 
     @Enumerated(EnumType.STRING)
