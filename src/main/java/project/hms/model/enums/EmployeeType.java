@@ -1,4 +1,4 @@
-package project.hms.models.enums;
+package project.hms.model.enums;
 
 public enum EmployeeType {
     MANAGER,

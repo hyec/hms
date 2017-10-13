@@ -1,9 +1,9 @@
-package project.hms.repositories;
+package project.hms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.hms.models.Room;
-import project.hms.models.enums.RoomStatus;
-import project.hms.models.enums.RoomType;
+import project.hms.model.Room;
+import project.hms.model.enums.RoomStatus;
+import project.hms.model.enums.RoomType;
 
 import java.util.List;
 

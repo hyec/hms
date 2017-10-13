@@ -1,6 +1,6 @@
-package project.hms.models;
+package project.hms.model;
 
-import project.hms.models.enums.EmployeeType;
+import project.hms.model.enums.EmployeeType;
 
 import javax.persistence.*;
 

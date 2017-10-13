@@ -1,7 +1,7 @@
-package project.hms.repositories;
+package project.hms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.hms.models.Good;
+import project.hms.model.Good;
 
 import java.util.List;
 

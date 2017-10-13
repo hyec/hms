@@ -1,6 +1,6 @@
-package project.hms.models;
+package project.hms.model;
 
-import project.hms.models.enums.Gender;
+import project.hms.model.enums.Gender;
 
 import javax.persistence.*;
 

@@ -1,8 +1,8 @@
-package project.hms.repositories;
+package project.hms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.hms.models.GoodOrder;
-import project.hms.models.User;
+import project.hms.model.GoodOrder;
+import project.hms.model.User;
 
 import java.util.List;
 

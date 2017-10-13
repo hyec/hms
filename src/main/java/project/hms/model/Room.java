@@ -1,7 +1,7 @@
-package project.hms.models;
+package project.hms.model;
 
-import project.hms.models.enums.RoomStatus;
-import project.hms.models.enums.RoomType;
+import project.hms.model.enums.RoomStatus;
+import project.hms.model.enums.RoomType;
 
 import javax.persistence.*;
 

@@ -1,9 +1,9 @@
-package project.hms.repositories;
+package project.hms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.hms.models.Employee;
-import project.hms.models.User;
-import project.hms.models.enums.EmployeeType;
+import project.hms.model.Employee;
+import project.hms.model.User;
+import project.hms.model.enums.EmployeeType;
 
 import java.util.List;
 

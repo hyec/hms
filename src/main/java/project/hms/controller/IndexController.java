@@ -1,4 +1,4 @@
-package project.hms.controllers;
+package project.hms.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +10,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model m) {
         m.addAttribute("title", "HMS");
-        return "index";
-    }
-
-    @GetMapping("/test/vender")
-    public String vender() {
         return "index";
     }
 

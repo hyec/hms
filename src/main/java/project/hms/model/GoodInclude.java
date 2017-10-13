@@ -1,4 +1,4 @@
-package project.hms.models;
+package project.hms.model;
 
 import javax.persistence.*;
 

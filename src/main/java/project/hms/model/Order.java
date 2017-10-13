@@ -1,6 +1,6 @@
-package project.hms.models;
+package project.hms.model;
 
-import project.hms.models.enums.OrderStatus;
+import project.hms.model.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.util.Set;

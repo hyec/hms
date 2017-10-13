@@ -1,10 +1,10 @@
-package project.hms.repositories;
+package project.hms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.hms.models.Order;
-import project.hms.models.Room;
-import project.hms.models.User;
-import project.hms.models.enums.OrderStatus;
+import project.hms.model.Order;
+import project.hms.model.Room;
+import project.hms.model.User;
+import project.hms.model.enums.OrderStatus;
 
 import java.util.List;
 
