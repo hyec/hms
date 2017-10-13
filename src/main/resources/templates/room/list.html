@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<body>
+<!--/*@thymesVar id="rooms" type="java.util.List<project.hms.model.Room>"*/-->
+<div th:each="room : ${rooms}">
+    <p th:text="${room.number}"></p>
+    <p th:text="${room.type}"></p>
+    <p th:text="${room.price}"></p>
+    <p th:text="${room.status}"></p>
+</div>
+</body>
+</html>
