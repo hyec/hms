@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<body>
+
+<!--/*@thymesVar id="room" type="project.hms.model.Room"*/-->
+<form th:action="@{/admin/room/edit}" th:method="post">
+
+    <input type="hidden" name="id" th:value="${room.id}">
+
+    <label for="number">房号</label>
+    <input type="number" id="number" name="number" th:value="${room.number}" required>
+
+    <label for="price">价格</label>
+    <input id="price" name="price" th:value="${room.price}" required>
+
+    <label for="type">类型</label>
+    <select id="type" name="type" th:value="${room.type}" required>
+        <option selected disabled hidden>请选择</option>
+        <option value="SINGLE">单人间</option>
+        <option value="DOUBLE">双人间</option>
+        <option value="FAMILY">家庭房</option>
+        <option value="KINGSIZE">大床房</option>
+    </select>
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <button type="submit">提交</button>
+
+</form>
+</body>
+</html>
