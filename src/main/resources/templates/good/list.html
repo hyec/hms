@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>123</title>
+</head>
+<body>
+<!--/*@thymesVar id="goods" type="java.util.List<project.hms.model.Good>"*/-->
+<div th:each="good : ${goods}">
+    <p th:text="${good.name}"></p>
+    <p th:text="${good.price}"></p>
+    <p th:text="${good.description}"></p>
+</div>
+</body>
+</html>
