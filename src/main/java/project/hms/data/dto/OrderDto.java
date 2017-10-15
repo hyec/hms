@@ -1,15 +1,21 @@
 package project.hms.data.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import project.hms.model.enums.RoomType;
 
+import javax.validation.constraints.Future;
 import java.util.Date;
 
-public class NewOrderDto {
+public class OrderDto {
 
+    @NotEmpty
     private RoomType roomType;
 
+    @NotEmpty
     private Date checkInTime;
 
+    @NotEmpty
+    @Future
     private Date checkOutTime;
 
     public RoomType getRoomType() {
