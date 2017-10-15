@@ -3,6 +3,7 @@ package project.hms.model;
 import project.hms.model.enums.OrderStatus;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -17,6 +18,14 @@ public class Order extends Base {
 
     @Column(nullable = false)
     private float price;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date checkInTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date checkOutTime;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
@@ -48,6 +57,22 @@ public class Order extends Base {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Date getCheckInTime() {
+        return checkInTime;
+    }
+
+    public void setCheckInTime(Date checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
+    public Date getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(Date checkOutTime) {
+        this.checkOutTime = checkOutTime;
     }
 
     public OrderStatus getStatus() {
