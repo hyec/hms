@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<body>
+
+<!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
+<form th:action="@{/admin/user/edit}" th:method="post">
+
+    <input type="hidden" name="id" th:value="${user.id}">
+
+    <label for="username">用户名</label>
+    <input id="username" name="username" th:value="${user.username}" required>
+
+    <label for="password">密码</label>
+    <input id="password" name="password" th:value="${user.password}" required>
+
+    <label for="name">姓名</label>
+    <input id="name" name="name" th:value="${user.name}" required>
+
+
+    <label for="type">性别</label>
+    <select id="type" name="type" th:value="${user.gender}" required>
+        <option selected disabled hidden>请选择</option>
+        <option value="MALE">男</option>
+        <option value="FEMALE">女</option>
+    </select>
+
+    <label for="idNum">身份证号码</label>
+    <input id="idNum" name="idNum" th:value="${user.idNum}" required>
+
+    <button type="submit">提交</button>
+
+</form>
+</body>
+</html>

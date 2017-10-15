@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<body>
+<!--/*@thymesVar id="users" type="java.util.List<project.hms.model.User>"*/-->
+<div th:each="user : ${users}">
+    <p th:text="${user.username}"></p>
+    <p th:text="${user.name}"></p>
+    <p th:text="${user.gender}"></p>
+    <p th:text="${user.idNum}"></p>
+</div>
+</body>
+</html>
