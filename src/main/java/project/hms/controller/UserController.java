@@ -70,4 +70,25 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    @GetMapping("/edit")
+    public String edit() {
+        return "user/info";
+    }
+
+
+    @PostMapping("/edit")
+    public String editPOST(
+            @Valid User user, BindingResult result,
+            Principal principal) throws Exception {
+        if (result.hasErrors()) {
+            throw new Exception("Error");
+        }
+        User oldUser = users.findByUsername(principal.getName());
+        oldUser.setGender(user.getGender());
+        oldUser.setName(user.getName());
+        oldUser.setPassword(user.getPassword());
+        users.save(oldUser);
+        return "user/info";
+    }
+
 }
