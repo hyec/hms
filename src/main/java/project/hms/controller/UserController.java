@@ -15,6 +15,7 @@ import project.hms.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -51,6 +52,21 @@ public class UserController {
             @Valid UserDto userDto,
             BindingResult result
     ) {
+        Optional<User> userOptional = users.findByUsernameIgnoreCase(userDto.getUsername());
+
+        if (userOptional.isPresent()) {
+            result.rejectValue("username", "Username already exists.");
+            return "register";
+        }
+
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setName(userDto.getName());
+        user.setGender(userDto.getGender());
+        user.setIdNum(userDto.getIdNum());
+
+        users.save(user);
+
         return "redirect:/user/login";
     }
 
