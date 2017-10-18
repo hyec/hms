@@ -2,6 +2,7 @@ package project.hms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,10 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPOST(
-            @Valid UserDto userDto,
-            BindingResult result
-    ) {
+    public String registerPOST(@Valid UserDto userDto, BindingResult result) {
         if (result.hasErrors()) {
             return "register";
         }
@@ -66,6 +64,9 @@ public class UserController {
         user.setGender(userDto.getGender());
         user.setIdNum(userDto.getIdNum());
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(userDto.getPassword()));
+
         users.save(user);
 
         return "redirect:/user/login";
@@ -78,9 +79,8 @@ public class UserController {
 
 
     @PostMapping("/edit")
-    public String editPOST(
-            @Valid User user, BindingResult result,
-            Principal principal) throws Exception {
+    public String editPOST(@Valid User user, BindingResult result,
+                           Principal principal) throws Exception {
         if (result.hasErrors()) {
             throw new Exception("Error");
         }
