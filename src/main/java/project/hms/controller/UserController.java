@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import project.hms.data.dto.UserDto;
 import project.hms.model.User;
 import project.hms.repository.UserRepository;
+import project.hms.util.ModelTool;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -84,11 +85,14 @@ public class UserController {
         if (result.hasErrors()) {
             throw new Exception("Error");
         }
-        User oldUser = users.findByUsername(principal.getName());
-        oldUser.setGender(user.getGender());
-        oldUser.setName(user.getName());
-        oldUser.setPassword(user.getPassword());
-        users.save(oldUser);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (user.getPassword() != null) {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
+        User savedUser;
+        savedUser = users.findByUsername(principal.getName());
+        ModelTool.merge(user, savedUser);
+        users.save(savedUser);
         return "user/info";
     }
 

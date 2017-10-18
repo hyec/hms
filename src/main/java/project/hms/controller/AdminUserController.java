@@ -2,12 +2,14 @@ package project.hms.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.hms.model.User;
 import project.hms.repository.UserRepository;
+import project.hms.util.ModelTool;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -63,8 +65,18 @@ public class AdminUserController {
 
     @PostMapping("/edit")
     public String editPOST(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        User savedUser;
+        Optional<User> userOptional = repository.findById(user.getId());
+        if (userOptional.isPresent()) {
+            savedUser = userOptional.get();
+            ModelTool.merge(user, savedUser);
+            user = savedUser;
+        }
 
-        User savedUser = repository.save(user);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+
+        savedUser = repository.save(user);
         return "redirect:/admin/room/info?id=" + savedUser.getId();
     }
 
