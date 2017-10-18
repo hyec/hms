@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<body>
+
+<!--/*@thymesVar id="order" type="project.hms.model.Order"*/-->
+<form th:action="@{/admin/order/edit}" th:method="post" th:object="${order}">
+
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{room}">
+    <input type="hidden" th:field="*{owner}">
+    <input type="hidden" th:field="*{price}">
+    <input type="hidden" th:field="*{checkInTime}">
+    <input type="hidden" th:field="*{checkOutTime}">
+    <input type="hidden" th:field="*{stays}">
+
+    <label for="status">类型</label>
+    <select id="status" th:field="*{status}" required>
+        <option selected disabled hidden>请选择</option>
+        <option value="UNPAID">未付钱</option>
+        <option value="PAID">已付钱</option>
+        <option value="CHECK_IN">入住</option>
+        <option value="COMPLETED">订单完成</option>
+        <option value="NOSHOW">预定人未到达</option>
+        <option value="CANCEL">取消</option>
+    </select>
+
+    <button type="submit">提交</button>
+
+</form>
+</body>
+</html>

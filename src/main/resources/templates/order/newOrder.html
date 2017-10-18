@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+
+</head>
+<body>
+
+<!--/*@thymesVar id="orderDto" type="project.hms.data.dto.OrderDto"*/-->
+<form th:action="@{/order/new}" th:method="post" th:object="${orderDto}">
+
+    <label for="roomtype">选择房型</label>
+    <select id="roomtype" th:field="*{roomType}" required>
+        <option disabled hidden value="">请选择</option>
+        <option value="SINGLE">单人间</option>
+        <option value="DOUBLE">双人间</option>
+        <option value="FAMILY">家庭房</option>
+        <option value="KINGSIZE">大床房</option>
+    </select>
+
+
+    <label for="starttime">开始时间</label>
+    <input id="starttime" type="date" th:field="*{checkInTime}" size="30" required>
+    <label for="endtime">结束时间</label>
+    <input id="endtime" type="date" th:field="*{checkOutTime}" size="30" required>
+    <button type="submit">提交</button>
+</form>
+</body>
+</html>

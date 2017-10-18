@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+
+</head>
+<body>
+<!--/*@thymesVar id="unpaidOrder" type="project.hms.model.Order"*/-->
+<p th:text="${unpaidOrder.owner.name}"></p>
+<p th:text="${unpaidOrder.getRoom().number}"></p>
+
+<p th:text="${unpaidOrder.checkOutTime}"></p>
+<p th:text="${unpaidOrder.checkInTime}"></p>
+<p th:text="${unpaidOrder.price}"></p>
+<a th:href="@{/order/confirmPay(id=${unpaidOrder.getId()})}">支付</a>
+
+
+</body>
+</html>

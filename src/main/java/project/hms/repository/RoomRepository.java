@@ -14,7 +14,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     List<Room> findAllByType(RoomType type);
 
-    List<Room> findByNumber(int number);
+    Optional<Room> findByNumber(int number);
 
     List<Room> findAllByStatus(RoomStatus status);
 
