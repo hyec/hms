@@ -13,7 +13,7 @@ public class GoodOrder extends Base {
     @Column(nullable = false)
     private float cost;
 
-    @OneToMany()
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "gorder_id")
     private List<GoodInclude> gincludes;
 
