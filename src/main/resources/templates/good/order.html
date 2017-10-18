@@ -1,21 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
+
+    <!--/*@thymesVar id="title" type="java.lang.String"*/-->
+    <title th:text="${title}"></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../static/css/ie10-viewport-bug-workaround.css"
+          th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
+
 </head>
 <body>
-<!--/*@thymesVar id="goods" type="java.util.List<project.hms.model.Good>"*/-->
-<form th:action="@{/admin/good/order}" th:method="post" th:object="${goods}">
 
-    <div th:each="good : ${goods}">
-        <p th:text="${good.name}"></p>
-        <p th:text="${good.description}"></p>
-        <button type="submit">购买</button>
+<div class="container">
+    <div class="row">
+        <div class="span8" id="list">
+            <h3 class="text-left">
+                商品列表
+            </h3>
+            <!--/*@thymesVar id="goods" type="java.util.List<project.hms.model.Good>"*/-->
+            <div class="panel panel-default" th:each="good : ${goods}">
+                <div class="panel-body">
+                    <th:block th:text="${good.name}"/>
+                    <input type="number" data-id="1" th:attr="data-id=${good.id}" value="0"/>
+                </div>
+            </div>
 
+            <button id="submit" class="btn btn-success" type="button">提交</button>
+        </div>
+        <div class="span4">
+        </div>
     </div>
+</div>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var action = /*[[@{/good/order}]]*/ '#';
+    var method = /*[[post]]*/ 'get';
+    /*]]>*/
+</script>
 
-</form>
+<script src="../../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+<script>
+    $(function () {
+
+        $('#submit').click(function () {
+            var goods = {};
+            $('#list').find('input').each(function () {
+                if ($(this).val() <= 0)
+                    return;
+                var id = $(this).data('id');
+                goods[id] = $(this).val();
+            });
+
+            if ($.isEmptyObject(goods))
+                alert("您还没有选择商品");
+
+            var form = $('<form></form>');
+            form.attr("method", method);
+            form.attr("action", action);
+
+            $.each(goods, function (id, amount) {
+                var field = $('<input/>');
+                field.attr("type", "hidden");
+                field.attr("name", "goods");
+                field.attr("value", id + ',' + amount);
+                form.append(field);
+            });
+
+            $(form).appendTo('body').submit();
+        });
+    });
+</script>
 </body>
 </html>
+
+
+
