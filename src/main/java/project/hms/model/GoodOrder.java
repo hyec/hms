@@ -1,7 +1,7 @@
 package project.hms.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "gorders")
@@ -15,7 +15,7 @@ public class GoodOrder extends Base {
 
     @OneToMany()
     @JoinColumn(name = "gorder_id")
-    private Set<GoodInclude> gincludes;
+    private List<GoodInclude> gincludes;
 
     public User getOwner() {
         return owner;
@@ -33,11 +33,11 @@ public class GoodOrder extends Base {
         this.cost = cost;
     }
 
-    public Set<GoodInclude> getGincludes() {
+    public List<GoodInclude> getGincludes() {
         return gincludes;
     }
 
-    public void setGincludes(Set<GoodInclude> gincludes) {
+    public void setGincludes(List<GoodInclude> gincludes) {
         this.gincludes = gincludes;
     }
 }
