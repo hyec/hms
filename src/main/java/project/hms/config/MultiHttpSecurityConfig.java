@@ -43,7 +43,9 @@ public class MultiHttpSecurityConfig {
 
                     .formLogin()
                     .loginPage("/user/login").permitAll()
-                    .and();
+                    .and()
+
+                    .csrf().disable();
         }
     }
 
