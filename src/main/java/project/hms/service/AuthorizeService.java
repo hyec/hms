@@ -13,6 +13,7 @@ import project.hms.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Optional;
 
 @Service
 public class AuthorizeService implements UserDetailsService {
@@ -51,13 +52,13 @@ public class AuthorizeService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsernameIgnoreCase(username);
+        Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);
 
-        if (user == null) {
+        if (!userOptional.isPresent()) {
             throw new UsernameNotFoundException("Username \"" + username + "\" not found.");
         }
 
-        return new UserDetailsImpl(user);
+        return new UserDetailsImpl(userOptional.get());
     }
 
     private static class UserDetailsImpl implements UserDetails {

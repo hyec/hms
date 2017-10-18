@@ -1,5 +1,8 @@
 package project.hms.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
+@DynamicUpdate
+@DynamicInsert
 public class Base implements Serializable {
 
     @Id

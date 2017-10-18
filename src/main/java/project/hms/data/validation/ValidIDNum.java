@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Size(min = 18, max = 18)
 public @interface ValidIDNum {
 
-    String message() default "";
+    String message() default "Wrong ID number.";
 
     Class<?>[] groups() default {};
 

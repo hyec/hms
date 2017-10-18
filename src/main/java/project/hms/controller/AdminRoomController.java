@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.hms.model.Room;
+import project.hms.model.enums.RoomStatus;
 import project.hms.repository.RoomRepository;
 
 import javax.validation.Valid;
@@ -66,6 +67,14 @@ public class AdminRoomController {
 
     @PostMapping("/edit")
     public String editPOST(@Valid Room room, BindingResult result) {
+
+        Optional<Room> roomOptional = repository.findById(room.getId());
+
+        if (roomOptional.isPresent()) {
+            room.setStatus(roomOptional.get().getStatus());
+        } else {
+            room.setStatus(RoomStatus.EMPTY);
+        }
 
         Room savedRoom = repository.save(room);
 

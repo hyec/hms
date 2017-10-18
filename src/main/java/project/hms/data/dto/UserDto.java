@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import project.hms.data.validation.ValidIDNum;
 import project.hms.model.enums.Gender;
 
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
 
     @NotEmpty
@@ -16,11 +18,8 @@ public class UserDto {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     private Gender gender;
-
-    @NotEmpty
-    private String email;
 
     @NotEmpty
     @ValidIDNum
@@ -64,14 +63,6 @@ public class UserDto {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getIdNum() {

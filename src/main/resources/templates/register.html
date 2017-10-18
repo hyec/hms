@@ -16,34 +16,44 @@
     <link href="../static/css/ie10-viewport-bug-workaround.css"
           th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
 
-    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+    <!--<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">-->
 
 </head>
 <body>
 
+
 <div class="container">
-    <form class="form-login" th:action="@{/user/register}" th:method="post">
-
-        <h2 class="form-login-heading">登陆</h2>
-
-        <div th:if="${#httpServletRequest.getParameter('error') != null}"
-             class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            用户名或密码错误！
-        </div>
-
-        <div th:if="${#httpServletRequest.getParameter('logout') != null}"
-             class="alert alert-info" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            您已成功登出！
-        </div>
 
 
-        <label for="username" class="sr-only">Email address</label>
-        <input id="username" name="username" class="form-control" placeholder="用户名" required autofocus>
+    <!--/*@thymesVar id="userDto" type="project.hms.data.dto.UserDto"*/-->
+    <form class="form-login" th:action="@{/user/register}" th:method="post" th:object="${userDto}">
 
-        <label for="password" class="sr-only">Password</label>
-        <input id="password" name="password" type="password" class="form-control" placeholder="密码" required>
+        <h2 class="form-login-heading">注册</h2>
+
+
+        <label for="username" class="sr-only">用户名</label>
+        <input id="username" th:field="*{username}" class="form-control" placeholder="用户名" required autofocus>
+
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" th:field="*{password}" type="password" class="form-control" placeholder="密码" required>
+
+        <label for="matchingPassword" class="sr-only">密码重复</label>
+        <input id="matchingPassword" th:field="*{matchingPassword}" type="password" class="form-control"
+               placeholder="重复" required>
+
+        <label for="type">性别</label>
+
+        <select id="type" name="gender" th:field="*{gender}" required>
+            <option selected disabled hidden value>请选择</option>
+            <option value="MALE">男</option>
+            <option value="FEMALE">女</option>
+        </select>
+
+        <label for="name" class="sr-only">姓名</label>
+        <input id="name" th:field="*{name}" class="form-control" placeholder="姓名" required>
+
+        <label for="idNum" class="sr-only">身份证号</label>
+        <input id="idNum" th:field="*{idNum}" class="form-control" placeholder="身份证号" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
     </form>

@@ -20,8 +20,13 @@ public class IDNumValidator implements ConstraintValidator<ValidIDNum, String> {
         this.dateFormat = new SimpleDateFormat("YYYYMMDD");
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+
+        if (value == null) {
+            return false;
+        }
 
         if (value.length() != 18) {
             return false;
@@ -44,7 +49,6 @@ public class IDNumValidator implements ConstraintValidator<ValidIDNum, String> {
         if (date.after(new Date())) {
             return false;
         }
-
 
         return true;
     }
