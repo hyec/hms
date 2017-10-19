@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <body>
 <!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
-<p th:text="${user.username}"></p>
-<p th:text="${user.name}"></p>
-<p th:text="${user.gender}"></p>
-<p th:text="${user.idNum}"></p>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>username</th>
+        <th>name</th>
+        <th>gender</th>
+        <th>idNum</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th th:text="${user.username}"></th>
+        <th th:text="${user.name}"></th>
+        <th th:text="${user.gender}"></th>
+        <th th:text="${user.idNum}"></th>
+    </tr>
+</table>
 </body>
 </html>
