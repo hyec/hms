@@ -23,7 +23,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByStatus(OrderStatus orderStatus);
 
     @Query("select o from Order o " +
-            "where o.checkInTime >= :startTime and o.checkInTime <= :endTime " +
-            "or o.checkOutTime >= :startTime and o.checkOutTime <= :endTime ")
+            "where o.checkOutTime > :startTime and o.checkInTime <= :startTime " +
+            "or o.checkOutTime >= :endTime and o.checkInTime < :endTime ")
     List<Order> findAllByTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }
