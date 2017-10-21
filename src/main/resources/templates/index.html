@@ -18,7 +18,7 @@
 </head>
 <body id="page-top">
 <!-- Navigation -->
-<nav id="nav" class="navbar navbar-default navbar-fixed-top">
+<nav id="nav" class="navbar navbar-default navbar-fixed-top" th:replace="layout :: nav(fixed=true)">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -36,18 +36,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="page-scroll" href="#about">预定</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#portfolio">订餐</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#team">团队</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#contact">后台</a>
-                </li>
+                <!--<li>-->
+                <!--<a class="page-scroll" href="#about">预定</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a class="page-scroll" href="#portfolio">订餐</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a class="page-scroll" href="#team">团队</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a class="page-scroll" href="#contact">后台</a>-->
+                <!--</li>-->
                 <li>
                     <a class="btn btn-nav" href="#page-top" role="button">登录</a>
                 </li>
@@ -462,14 +462,6 @@
         </div>
     </div>
 </section>
-<p id="back-top">
-    <a href="#page-top"><span class="glyphicon glyphicon-chevron-up arrow"></span></a>
-</p>
-<footer>
-    <div class="container text-center">
-        <p>Designed by <a href="http://moozthemes.com"><span>MOOZ</span>Themes.com</a></p>
-    </div>
-</footer>
 
 <!-- Modal for portfolio item 1 -->
 <div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
@@ -576,15 +568,39 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<footer th:replace="layout :: footer">
+
+</footer>
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/theme-scripts.js"></script>
+</th:block>
 <script src="https://cdn.bootcss.com/jquery.appear/0.3.3/jquery.appear.min.js"></script>
-<!-- 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> -->
-<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-<script src="../static/js/theme-scripts.js" th:src="@{/js/theme-scripts.js}"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../static/js/ie10-viewport-bug-workaround.js" th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+<script>
+    $(function () {
+      $('#stats-bar').on('appear', function () {
+        $('#stats-bar').off('appear');
+
+        var items = [];
+        $(this).find('.counter-item h2').each(function () {
+          items.push({
+            'elem': $(this),
+            'count': $(this).data('count')
+          });
+        });
+
+        $(this).prop('Counter', 0).animate({'Counter': 1}, {
+          'duration': 1000,
+          'step': function (i) {
+            items.forEach(function (e) {
+              e.elem.text(Math.ceil(e.count * i));
+            });
+          }
+        });
+      }).appear();
+    });
+</script>
 </body>
 </html>
