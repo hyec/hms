@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import project.hms.data.dto.OrderDto;
 import project.hms.model.Order;
 import project.hms.model.Room;
@@ -51,13 +48,20 @@ public class OrderController {
         return "order/newOrder";
     }
 
+
     @PostMapping("/new")
     public String newPOST(@Valid OrderDto orderDto, BindingResult result,
                           Principal principal, Model model) throws Exception {
         if (result.hasErrors()) {
             throw new Exception("Error");
         }
-        User user = userRepository.findByUsername(principal.getName());
+        User user = null;
+        try {
+            user = userRepository.findByUsername(principal.getName());
+        } catch (NullPointerException e) {
+            System.out.println("Î´µÇÂ¼");
+            return "redirect:/user/login";
+        }
         /*if (userOptional.isPresent()) {
             result.rejectValue("username", "Username already exists.");
             return "register";
@@ -79,6 +83,19 @@ public class OrderController {
         Order save = orderRepository.save(order);
         model.addAttribute("unpaidOrder", save);
         return "order/pay";
+    }
+
+    @PostMapping("/searchroom")
+    @ResponseBody
+    public String searchRoom(@Valid OrderDto orderDto, BindingResult result, Model model) throws Exception {
+        if (result.hasErrors()) {
+            throw new Exception("Error");
+        }
+        List<Room> availableRooms = orderService.getAvailableRooms(orderDto.getRoomType(), orderDto.getCheckInTime(), orderDto.getCheckOutTime());
+        if (availableRooms.isEmpty()) {
+            return "-1";
+        }
+        return availableRooms.size() + "";
     }
 
     @GetMapping("/confirmPay")
