@@ -4,21 +4,21 @@
 <body>
 <!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
 
-<table class="table table-striped">
-    <tr>
-        <th>#</th>
-        <th>username</th>
-        <th>name</th>
-        <th>gender</th>
-        <th>idNum</th>
-    </tr>
-    <tr>
-        <th></th>
-        <th th:text="${user.username}"></th>
-        <th th:text="${user.name}"></th>
-        <th th:text="${user.gender}"></th>
-        <th th:text="${user.idNum}"></th>
-    </tr>
+<div id="container">
+    <table class="table table-striped">
+        <tr>
+            <th>username</th>
+            <th>name</th>
+            <th>gender</th>
+            <th>idNum</th>
+        </tr>
+        <tr>
+            <th th:text="${user.username}"></th>
+            <th th:text="${user.name}"></th>
+            <th th:text="${user.gender}"></th>
+            <th th:text="${user.idNum}"></th>
+        </tr>
 </table>
+</div>
 </body>
 </html>
