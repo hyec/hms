@@ -2,10 +2,10 @@ package project.hms.data.dto;
 
 public class SelectDto {
 
-    private boolean select;
-    private boolean multi;
-    private String action;
-    private String method;
+    private boolean select = false;
+    private boolean multi = false;
+    private String action = null;
+    private String method = "post";
 
     public SelectDto() {
         this.select = false;

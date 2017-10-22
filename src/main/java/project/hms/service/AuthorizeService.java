@@ -7,7 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.hms.model.Employee;
+import project.hms.data.UserDetail;
+import project.hms.data.UserInfo;
 import project.hms.model.User;
 import project.hms.repository.UserRepository;
 
@@ -25,87 +26,47 @@ public class AuthorizeService implements UserDetailsService {
         this.userRepository = users;
     }
 
-    private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
+    public UserInfo getUserInfo(String username) {
+        Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);
 
-        Collection<SimpleGrantedAuthority> authorities = new LinkedList<>();
+        return userOptional.map(UserInfo::new).orElseGet(UserInfo::new);
+    }
 
-        if (user != null) {
-            authorities.add(new SimpleGrantedAuthority("USER"));
+    public UserDetail getUserDetail(UserInfo info) {
+        Collection<GrantedAuthority> authorities = new LinkedList<>();
 
-            Employee employee = user.getEmployee();
-            if (employee != null) {
-                authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
-                switch (employee.getType()) {
-                    case CLEANER:
-                        authorities.add(new SimpleGrantedAuthority("CLEANER"));
-                    case CASHIER:
-                        authorities.add(new SimpleGrantedAuthority("CASHIER"));
-                    case MANAGER:
-                        authorities.add(new SimpleGrantedAuthority("MANAGER"));
-                }
-            }
+        if (!info.isValid()) {
+            return null;
         }
 
-        return authorities;
+        authorities.add(new SimpleGrantedAuthority("USER"));
+
+        if (info.isCashier())
+            authorities.add(new SimpleGrantedAuthority("CASHIER"));
+
+        if (info.isCleaner())
+            authorities.add(new SimpleGrantedAuthority("CLEANER"));
+
+        if (info.isManager())
+            authorities.add(new SimpleGrantedAuthority("MANAGER"));
+
+        return new UserDetail(info.getUsername(), info.getPassword(), authorities);
+    }
+
+    public UserDetail getUserDetail(String username) {
+        UserInfo info = this.getUserInfo(username);
+        return getUserDetail(info);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);
+        UserDetail userDetail = getUserDetail(username);
 
-        if (!userOptional.isPresent()) {
+        if (userDetail == null) {
             throw new UsernameNotFoundException("Username \"" + username + "\" not found.");
         }
 
-        return new UserDetailsImpl(userOptional.get());
-    }
-
-    private static class UserDetailsImpl implements UserDetails {
-
-        private final String username;
-        private final String password;
-        private final Collection<? extends GrantedAuthority> authorities;
-
-        UserDetailsImpl(User user) {
-            this.username = user.getUsername();
-            this.password = user.getPassword();
-            this.authorities = AuthorizeService.getAuthorities(user);
-        }
-
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorities;
-        }
-
-        @Override
-        public String getPassword() {
-            return password;
-        }
-
-        @Override
-        public String getUsername() {
-            return username;
-        }
-
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
+        return userDetail;
     }
 }
