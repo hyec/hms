@@ -45,7 +45,8 @@ public class OrderService {
         Set<Room> unavailRooms = new HashSet<>();
 
         orders.forEach((order -> {
-            if (order.getStatus() != OrderStatus.CANCEL)
+            if (order.getStatus() != OrderStatus.CANCEL &&
+                    order.getStatus() != OrderStatus.COMPLETED)
                 unavailRooms.add(order.getRoom());
         }));
         rooms.removeAll(unavailRooms);

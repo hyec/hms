@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<link rel="stylesheet" href="../../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<body>
+<!--/*@thymesVar id="users" type="java.util.List<project.hms.model.User>"*/-->
+<!--/*@thymesVar id="sel" type="project.hms.data.dto.SelectDto"*/-->
+<div id="container">
+    <form id="form" th:action="${sel.action}" th:method="${sel.method}">
+        <table class="table table-striped" id="list">
+            <thead>
+            <tr>
+
+                <th th:if="${sel.select}"></th>
+                <th>username</th>
+                <th>name</th>
+                <th>gender</th>
+                <th>idNum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <th th:if="${sel.select}">
+                    <input type="checkbox" name="user" title="" value="" th:title="${user.username}"
+                           th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${user.id}">
+                </th>
+                <th th:text="${user.username}">Test</th>
+                <th th:text="${user.name}">Test</th>
+                <th th:text="${user.gender}">Male</th>
+                <th th:text="${user.idNum}">123</th>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary" type="submit" th:if="${sel.select}">选择</button>
+
+    </form>
+
+</div>
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../../static/js/bootstrap.min.js"></script>
+    <script src="../../../static/js/theme-scripts.js"></script>
+</th:block>
+
+<script>
+  $(function () {
+    if ($('#form')) {
+      $('#submit').click(function () {
+
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

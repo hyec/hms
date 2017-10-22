@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<link rel="stylesheet" href="../../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<body>
+
+<!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
+<div>
+    <form th:action="@{/admin/user/edit}" th:method="post" th:object="${user}" class="form-horizontal">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-6">
+                <input id="username" class="form-control" th:field="*{username}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-6">
+                <input id="password" class="form-control" th:field="*{password}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-6">
+                <input id="name" class="form-control" th:field="*{name}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-6">
+                <select id="type" class="form-control" th:field="*{gender}" required>
+                    <option disabled hidden value="">请选择</option>
+                    <option value="MALE">男</option>
+                    <option value="FEMALE">女</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="idNum" class="col-sm-2 control-label">身份证号码</label>
+            <div class="col-sm-6">
+                <input id="idNum" class="form-control" th:field="*{idNum}" required>
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+            <p></p>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

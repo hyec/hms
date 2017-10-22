@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import project.hms.data.dto.SelectDto;
 import project.hms.model.User;
 import project.hms.repository.UserRepository;
 import project.hms.util.ModelTool;
@@ -25,9 +26,14 @@ public class AdminUserController {
     }
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(@ModelAttribute SelectDto selectDto, Model model) {
+        if (selectDto == null) {
+            selectDto = new SelectDto();
+        }
+
+        model.addAttribute("sel", selectDto);
         model.addAttribute("users", repository.findAll());
-        return "user/list";
+        return "admin/user/list";
     }
 
     @GetMapping("/info")
@@ -40,7 +46,7 @@ public class AdminUserController {
         }
 
         model.addAttribute("user", userOptional.get());
-        return "user/info";
+        return "admin/user/info";
     }
 
 
@@ -60,7 +66,7 @@ public class AdminUserController {
             model.addAttribute("user", new User());
         }
 
-        return "user/edit";
+        return "admin/user/edit";
     }
 
     @PostMapping("/edit")
