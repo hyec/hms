@@ -6,13 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import project.hms.model.Good;
-import project.hms.model.GoodInclude;
-import project.hms.model.GoodOrder;
+import org.springframework.web.bind.annotation.RequestParam;
+import project.hms.model.*;
+import project.hms.model.enums.GoodsOrderStatus;
+import project.hms.model.enums.OrderStatus;
 import project.hms.repository.GoodOrderRepository;
 import project.hms.repository.GoodRepository;
+import project.hms.repository.OrderRepository;
+import project.hms.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +27,15 @@ public class OrderGoodsController {
 
     private final GoodRepository goodRepository;
     private final GoodOrderRepository goodOrderRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderGoodsController(GoodRepository goodRepository, GoodOrderRepository goodOrderRepository) {
+    public OrderGoodsController(GoodRepository goodRepository, GoodOrderRepository goodOrderRepository, UserRepository userRepository, OrderRepository orderRepository) {
         this.goodRepository = goodRepository;
         this.goodOrderRepository = goodOrderRepository;
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/order")
@@ -37,7 +45,7 @@ public class OrderGoodsController {
     }
 
     @PostMapping("/order")
-    public String orderPOST(HttpServletRequest req) throws Exception {
+    public String orderPOST(HttpServletRequest req, Principal principal, Model model) throws Exception {
 
         List<GoodInclude> includes = new LinkedList<>();
 
@@ -64,16 +72,53 @@ public class OrderGoodsController {
 
             includes.add(include);
         }
-
-        includes.forEach(i -> i.setCost(i.getGood().getPrice() * i.getAmount()));
+        int sum = 0;
+        for (GoodInclude i : includes) {
+            i.setCost(i.getGood().getPrice() * i.getAmount());
+            sum += i.getGood().getPrice() * i.getAmount();
+        }
 
         GoodOrder goodOrder = new GoodOrder();
 
+        goodOrder.setStatus(GoodsOrderStatus.UNPAID);
+
+        goodOrder.setCost(sum);
+
+        User owner = userRepository.findByUsername(principal.getName());
+
+        goodOrder.setOwner(owner);
+
+        List<Order> orders = orderRepository.findAllByOwner(owner);
+
+        orders.removeIf(gorder -> !gorder.getStatus().equals(OrderStatus.CHECK_IN));
+
+        if (orders.isEmpty()) {
+            throw new Exception("unavailble order");
+        }
+        goodOrder.setRoom(orders.get(0).getRoom());
+
         goodOrder.setGincludes(includes);
 
+        GoodOrder savedGoodOrder = goodOrderRepository.save(goodOrder);
+
+        model.addAttribute("unpaidGoodOrder", savedGoodOrder);
+
+        return "good/pay";
+    }
+
+    @GetMapping("/confirmPay")
+    public String pay(@RequestParam(value = "id") Integer id) throws Exception {
+        Optional<GoodOrder> GoodOrderOptional = goodOrderRepository.findById(id);
+        if (!GoodOrderOptional.isPresent()) {
+            throw new Exception("invalid order");
+        }
+
+        GoodOrder goodOrder = GoodOrderOptional.get();
+        goodOrder.setStatus(GoodsOrderStatus.PAID);
         goodOrderRepository.save(goodOrder);
 
-        return "good/order";
+        return "good/paid";
+
     }
 
 }

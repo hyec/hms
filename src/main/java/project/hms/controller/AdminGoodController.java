@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.hms.model.Good;
 import project.hms.repository.GoodRepository;
+import project.hms.util.ModelTool;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class AdminGoodController {
         return "good/list";
     }
 
-    @GetMapping("info")
+    @GetMapping("/info")
     public String info(@RequestParam("id") Integer id, Model model) throws Exception {
 
         Optional<Good> goodOptional = repository.findById(id);
@@ -64,7 +65,20 @@ public class AdminGoodController {
     @PostMapping("/edit")
     public String editPOST(@ModelAttribute("goods") @Valid Good good, BindingResult result) {
 
-        Good savedGood = repository.save(good);
+        if (result.hasErrors()) {
+            return "good/edit";
+        }
+
+        Good savedGood;
+
+        Optional<Good> goodOptional = repository.findById(good.getId());
+        if (goodOptional.isPresent()) {
+            savedGood = goodOptional.get();
+            ModelTool.merge(good, savedGood);
+            good = savedGood;
+        }
+
+        savedGood = repository.save(good);
 
         return "redirect:/admin/good/info?id=" + savedGood.getId();
     }

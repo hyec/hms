@@ -55,11 +55,11 @@ public class OrderController {
         if (result.hasErrors()) {
             throw new Exception("Error");
         }
-        User user = null;
+        User user;
         try {
             user = userRepository.findByUsername(principal.getName());
         } catch (NullPointerException e) {
-            System.out.println("δ��¼");
+            System.out.println("未登录");
             return "redirect:/user/login";
         }
         /*if (userOptional.isPresent()) {
@@ -107,6 +107,6 @@ public class OrderController {
         Order order = orderOptional.get();
         order.setStatus(OrderStatus.PAID);
         orderRepository.save(order);
-        return "redirect:/";
+        return "redirect:/good/paid";
     }
 }
