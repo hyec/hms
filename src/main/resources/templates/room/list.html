@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <body>
 <!--/*@thymesVar id="rooms" type="java.util.List<project.hms.model.Room>"*/-->
-<div th:each="room : ${rooms}">
-    <p th:text="${room.number}"></p>
-    <p th:text="${room.type}"></p>
-    <p th:text="${room.price}"></p>
-    <p th:text="${room.status}"></p>
+<!--/*@thymesVar id="sel" type="project.hms.data.dto.SelectDto"*/-->
+<div id="container">
+    <form id="form" th:action="${sel.action}" th:method="${sel.method}">
+        <table class="table table-striped" id="list">
+            <thead>
+            <tr>
+                <th th:if="${sel.select}"></th>
+                <th>number</th>
+                <th>type</th>
+                <th>price</th>
+                <th>status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="room : ${rooms}">
+                <th th:if="${sel.select}">
+                    <input type="checkbox" name="room" title="" value="" th:title="${room.number}"
+                           th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${room.id}">
+                </th>
+                <th th:text="${room.number}"></th>
+                <th th:text="${room.type}"></th>
+                <th th:text="${room.price}"></th>
+                <th th:text="${room.status}"></th>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary" type="submit" th:if="${sel.select}">选择</button>
+
+    </form>
+
 </div>
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/theme-scripts.js"></script>
+</th:block>
+
 </body>
 </html>

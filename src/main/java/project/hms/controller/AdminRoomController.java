@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import project.hms.data.dto.SelectDto;
 import project.hms.model.Room;
 import project.hms.model.enums.RoomStatus;
 import project.hms.repository.RoomRepository;
@@ -28,7 +26,12 @@ public class AdminRoomController {
     }
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(@ModelAttribute SelectDto selectDto, Model model) {
+        if (selectDto == null) {
+            selectDto = new SelectDto();
+        }
+
+        model.addAttribute("sel", selectDto);
         model.addAttribute("rooms", repository.findAll());
         return "room/list";
     }
