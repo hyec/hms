@@ -1,6 +1,8 @@
 package project.hms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import project.hms.data.UserInfo;
@@ -26,7 +28,16 @@ public class GlobalControllerAdvice {
             return new UserInfo();
         }
 
-        return authorizeService.getUserInfo(principal.getName());
+        UserDetails userDetails;
+
+        try {
+            userDetails = authorizeService.loadUserByUsername(principal.getName());
+        } catch (UsernameNotFoundException e) {
+            return new UserInfo();
+        }
+
+        return new UserInfo(userDetails);
+
     }
 
 }
