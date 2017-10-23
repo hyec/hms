@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,13 +74,23 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    @GetMapping("/edit")
-    public String edit() {
+    @GetMapping("/info")
+    @PreAuthorize("isAuthenticated()")
+    public String info(Principal principal, Model model) {
+        model.addAttribute("user", users.findByUsername(principal.getName()));
         return "user/info";
+    }
+
+    @GetMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
+    public String edit(Principal principal, Model model) {
+        model.addAttribute("user", users.findByUsername(principal.getName()));
+        return "user/edit";
     }
 
 
     @PostMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
     public String editPOST(@Valid User user, BindingResult result,
                            Principal principal) throws Exception {
         if (result.hasErrors()) {
@@ -93,7 +104,7 @@ public class UserController {
         savedUser = users.findByUsername(principal.getName());
         ModelTool.merge(user, savedUser);
         users.save(savedUser);
-        return "user/info";
+        return "redirect:user/info?id=" + savedUser.getId();
     }
 
 }

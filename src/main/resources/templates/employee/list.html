@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <body>
 <!--/*@thymesVar id="employees" type="java.util.List<project.hms.model.Employee>"*/-->
 <div th:each="employee : ${employees}">
@@ -7,5 +8,7 @@
     <p th:text="${employee.type}"></p>
     <p th:text="${employee.performance}"></p>
 </div>
+<a class="btn btn-primary"
+   th:href="@{/admin/user/list(select=true,action='/admin/employee/new',method='post')}">添加新员工</a>
 </body>
 </html>
