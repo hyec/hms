@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 public class IDNumValidator implements ConstraintValidator<ValidIDNum, String> {
 
+    private final static int[] CODE_WEIGHT = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+    private final static char[] VERIFY_CODE = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
+
     private Pattern pattern;
     private DateFormat dateFormat;
 
@@ -50,6 +53,17 @@ public class IDNumValidator implements ConstraintValidator<ValidIDNum, String> {
             return false;
         }
 
+        int sum = 0;
+        for (int i = 0; i < 17; i++) {
+            char ch = value.charAt(i);
+            sum += (ch - '0') * CODE_WEIGHT[i];
+        }
+
+        Character s = VERIFY_CODE[sum % 11];
+
+        if (!matcher.group(4).equals(s.toString())) {
+            return false;
+        }
         return true;
     }
 }

@@ -2,21 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <body>
 <!--/*@thymesVar id="goods" type="project.hms.model.Good"*/-->
-<form th:action="@{/admin/goods/edit}" th:method="post">
+<form th:action="@{/admin/good/edit}" th:method="post" th:object="${goods}">
 
-    <input type="hidden" name="id" th:value="${goods.id}">
+    <input type="hidden" th:field="*{id}">
 
     <label for="name">商品名称</label>
-    <input type="text" id="name" name="name" th:value="${goods.name}" required>
+    <input type="text" id="name" th:field="*{name}" required>
 
     <label for="price">价格</label>
-    <input id="price" name="price" th:value="${goods.price}" required>
+    <input id="price" th:field="*{price}" required>
 
     <label for="description">商品描述</label>
-    <input type="text" id="description" name="description" th:value="${goods.description}" required>
-
-
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="text" id="description" th:field="*{description}" required>
 
     <button type="submit">提交</button>
 
