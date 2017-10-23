@@ -634,6 +634,7 @@ section#contact .form-group input, section#contact .form-group textarea {
 footer {
     padding: 30px;
     background-color: #000;
+    margin-top: 30px;
 }
 
 footer p {
@@ -815,4 +816,24 @@ and (max-width: 480px) {
         margin-top: 7px;
         font-size: 20px;
     }
+}
+
+/* Order page
+---------------------------------- */
+
+.room_img {
+    height: 200px;
+    width: 250px;
+}
+
+.type-group .active:before {
+    content: "\e013";
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+    color: white;
+    z-index: 1;
+    top: 3px;
+    left: 15px;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 2px black;
 }

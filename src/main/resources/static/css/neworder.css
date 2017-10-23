@@ -2,3 +2,15 @@
     height: 200px;
     width: 250px;
 }
+
+.type-group .active:before {
+    content: "\e013";
+    font-family: 'Glyphicons Halflings', serif;
+    position: absolute;
+    color: white;
+    z-index: 1;
+    top: 3px;
+    left: 15px;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 2px black;
+}

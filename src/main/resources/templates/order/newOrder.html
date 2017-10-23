@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<head>
+<head th:replace="layout :: head(~{::title}, ~{::links})" th:with="">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../static/css/ie10-viewport-bug-workaround.css"
-          th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
-    <link href="../../static/css/neworder.css" th:href="@{/css/neworder.css}" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/css/daterangepicker.css" th:href="@{/css/daterangepicker.css}">
-
-    <script src="../../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-    <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-    <script src="../../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
-    <script src="../../static/js/daterangepicker.js" th:src="@{/js/daterangepicker.js}"></script>
-
-
+    <title>订单</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/style.css" rel="stylesheet">
+    <link th:fragment="links" rel="stylesheet" href="../../static/css/daterangepicker.css"
+          th:href="@{/css/daterangepicker.css}">
 </head>
-<body>
+<body id="page-top">
+
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <h2 class="text-center">预定房间</h2>
@@ -28,35 +29,27 @@
             <div class="panel-body">
                 <h4 class="text-center">选择房型</h4>
 
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default" data-toggle='toogle'>
-                        <input type="radio" class="radio_btn" name="radio" data-type="SINGLE">
+                <div class="btn-group type-group" data-toggle="buttons">
+                    <a class="btn btn-default" data-toggle='toogle'>
+                        <input type="radio" class="radio_btn" name="radio" title="单人房" data-type="SINGLE">
                         <img class="room_img" src="../../static/single.jpg" th:src="@{/single.jpg}">
-                        <div>
-                            <strong class="text-muted">单人房</strong>
-                        </div>
-                    </label>
-                    <label class="btn btn-default" data-toggle='toogle'>
-                        <input type="radio" class="radio_btn" name="radio" data-type="DOUBLE">
+                        <p class="text-muted"><strong>单人房</strong></p>
+                    </a>
+                    <a class="btn btn-default" data-toggle='toogle'>
+                        <input type="radio" class="radio_btn" name="radio" title="双人房" data-type="DOUBLE">
                         <img class="room_img" src="../../static/double.jpg" th:src="@{/double.jpg}">
-                        <div>
-                            <strong class="text-muted">双人房</strong>
-                        </div>
-                    </label>
-                    <label class="btn btn-default" data-toggle='toogle'>
-                        <input type="radio" class="radio_btn" name="radio" data-type="KINGSIZE">
+                        <p class="text-muted"><strong>双人房</strong></p>
+                    </a>
+                    <a class="btn btn-default" data-toggle='toogle'>
+                        <input type="radio" class="radio_btn" name="radio" title="大床房" data-type="KINGSIZE">
                         <img class="room_img" src="../../static/kingsize.jpg" th:src="@{/kingsize.jpg}">
-                        <div>
-                            <strong class="text-muted">大床房</strong>
-                        </div>
-                    </label>
-                    <label class="btn btn-default" data-toggle='toogle'>
-                        <input type="radio" class="radio_btn" name="radio" data-type="FAMILY">
+                        <p class="text-muted"><strong>大床房</strong></p>
+                    </a>
+                    <a class="btn btn-default" data-toggle='toogle'>
+                        <input type="radio" class="radio_btn" name="radio" title="家庭房" data-type="FAMILY">
                         <img class="room_img" src="../../static/family.jpg" th:src="@{/family.jpg}">
-                        <div>
-                            <strong class="text-muted">家庭房</strong>
-                        </div>
-                    </label>
+                        <p class="text-muted"><strong>家庭房</strong></p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -64,17 +57,13 @@
         <form th:action="@{/order/new}" th:method="post" th:object="${orderDto}">
             <div class="panel panel-default text-center">
                 <div class="panel-body">
-
-                    <input id="roomtype" hidden th:field="*{roomType}">
-                    <input id="starttime" hidden type="date" th:field="*{checkInTime}" size="30">
-                    <input id="endtime" hidden type="date" th:field="*{checkOutTime}" size="30">
+                    <input id="roomtype" type="hidden" th:field="*{roomType}">
+                    <input id="starttime" type="hidden" th:field="*{checkInTime}" size="30">
+                    <input id="endtime" type="hidden" th:field="*{checkOutTime}" size="30">
                     <label>
-
                         <strong class="text-muted">请选择入住、离店日期：</strong>
-
                         <input id="date" readonly required>
                     </label>
-
                 </div>
             </div>
             <div class="alert alert-danger" style="display:none">
@@ -84,70 +73,77 @@
                 <p class="text-center">Success!还有<strong class="text-success" id="roomnum"></strong>间剩余房间！</p>
             </div>
             <div class="text-center">
-                <input type="submit" class="btn btn-success "></input>
+                <input type="submit" class="btn btn-success"/>
                 <button class="btn btn-default">返回</button>
             </div>
         </form>
     </div>
 </div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/theme-scripts.js"></script>
+</th:block>
+<script src="../../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
+<script src="../../static/js/daterangepicker.js" th:src="@{/js/daterangepicker.js}"></script>
 <script type="text/javascript">
 
-    function ajax_post() {
-        if ($('#roomtype').val() != '' && $('#starttime').val() != '') {
-            $.ajax({
-                type: 'POST',
-                url: '/order/searchroom',
-                data: $('form').serialize(),
-                success: function (data) {
-                    if (data == '-1') {
-                        $('.alert-success').hide();
-                        $('.alert-danger').show();
-                    } else {
-                        $('.alert-danger').hide();
-                        $('#roomnum').text(data)
-                        $('.alert-success').show();
-                    }
-                }
-            });
+  function ajax_post() {
+    if ($('#roomtype').val() !== '' && $('#starttime').val() !== '') {
+      $.ajax({
+        type: 'POST',
+        url: '/order/searchroom',
+        data: $('form').serialize(),
+        success: function (data) {
+          if (data === '-1') {
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+          } else {
+            $('.alert-danger').hide();
+            $('#roomnum').text(data);
+            $('.alert-success').show();
+          }
         }
+      });
     }
+  }
 
-    $(function () {
-        $("[data-toggle='toogle']").tooltip('toggle');
-        $('#date').daterangepicker(
-            {
-                locale: {
-                    applyLabel: '确认',
-                    cancelLabel: '取消',
-                    fromLabel: '从',
-                    toLabel: '到',
-                    weekLabel: 'W',
-                    customRangeLabel: 'Custom Range',
-                    daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
-                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-                },
-                endDate: moment().add(1, 'days').format('MM/DD/YYYY'),
-                autoApply: true,
-                minDate: moment().format('MM/DD/YYYY')
-            }, function (start, end, label) {
-                if (start.format('YYYY-MM-DD') == end.format('YYYY-MM-DD')) {
-                    alert("入住，离店不能为同一天！");
-                    end.add(1, 'days');
-                }
-                $('#starttime').val(start.format('YYYY-MM-DD')).change();
-                $('#endtime').val(end.format('YYYY-MM-DD')).change();
-            })
-        $('#date').val('')
+  $(function () {
+    $("[data-toggle='toogle']").tooltip('toggle');
+    $('#date').daterangepicker(
+      {
+        locale: {
+          applyLabel: '确认',
+          cancelLabel: '取消',
+          fromLabel: '从',
+          toLabel: '到',
+          weekLabel: 'W',
+          customRangeLabel: 'Custom Range',
+          daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+          monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+        },
+        endDate: moment().add(1, 'days').format('MM/DD/YYYY'),
+        autoApply: true,
+        minDate: moment().format('MM/DD/YYYY')
+      }, function (start, end) {
+        if (start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')) {
+          alert("入住，离店不能为同一天！");
+          end.add(1, 'days');
+        }
+        $('#starttime').val(start.format('YYYY-MM-DD')).change();
+        $('#endtime').val(end.format('YYYY-MM-DD')).change();
+      }
+    ).val('').change(ajax_post);
 
-        $('.radio_btn').change(function () {
-            $('#roomtype').val($(this).data('type'));
-            ajax_post();
-        })
+    $('.radio_btn').change(function () {
+      $('#roomtype').val($(this).data('type'));
+      ajax_post();
+    });
 
-        $('#date').change(function () {
-            ajax_post();
-        })
-    })
+  })
 </script>
 </body>
 </html>

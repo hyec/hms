@@ -19,7 +19,9 @@
 </head>
 <body id="page-top">
 
+<!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
 <!--/*@thymesVar id="fixed" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="index" type="java.lang.Boolean"*/-->
 <nav id="nav" class="navbar navbar-default " th:fragment="nav"
      th:classappend="${fixed} ? 'navbar-fixed-top' : 'navbar-static-top navbar-shrink'">
     <div class="container">
@@ -40,19 +42,23 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#about">预定</a>
+                    <a th:if="${index}" class="page-scroll" href="#order">预定</a>
+                    <a th:unless="${index}" th:href="@{/order/new}">预定</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#portfolio">订餐</a>
+                    <a class="page-scroll" th:href="@{/good/order}">订餐</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#team">团队</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#contact">后台</a>
+                <li th:if="${userInfo.isEmployee()}">
+                    <a class="page-scroll" th:href="@{/admin}">后台</a>
                 </li>
-                <li>
-                    <a class="btn btn-nav" href="#page-top" role="button">登录</a>
+                <li th:if="${userInfo.isValid()}">
+                    <a class="btn btn-nav" th:href="@{/user}" role="button">个人中心</a>
+                </li>
+                <li th:unless="${userInfo.isValid()}">
+                    <a class="btn btn-nav" th:href="@{/user/login}" role="button">登录</a>
                 </li>
             </ul>
         </div>
