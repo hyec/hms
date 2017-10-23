@@ -21,6 +21,11 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute("userInfo")
     public UserInfo userInfo(Principal principal) {
+
+        if (principal == null) {
+            return new UserInfo();
+        }
+
         return authorizeService.getUserInfo(principal.getName());
     }
 
