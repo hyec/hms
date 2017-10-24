@@ -45,7 +45,6 @@ public class CleanRoomController {
             }
         }
 
-
         return "redirect:/admin/room/list";
     }
 

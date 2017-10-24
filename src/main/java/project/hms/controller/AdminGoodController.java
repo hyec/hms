@@ -24,6 +24,11 @@ public class AdminGoodController {
         this.repository = repository;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/admin/good/list";
+    }
+
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("goods", repository.findAll());

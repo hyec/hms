@@ -20,6 +20,11 @@ public class AdminOrderController {
     private final OrderRepository orderRepository;
     // private final RoomRepository roomRepository;
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/admin/order/list";
+    }
+
     @Autowired
     public AdminOrderController(OrderRepository orderRepository, RoomRepository roomRepository) {
         this.orderRepository = orderRepository;

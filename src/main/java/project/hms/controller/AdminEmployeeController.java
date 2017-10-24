@@ -27,6 +27,11 @@ public class AdminEmployeeController {
         this.userRepository = userRepository;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/admin/employee/list";
+    }
+
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("employees", employeeRepository.findAll());

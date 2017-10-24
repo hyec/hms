@@ -25,6 +25,11 @@ public class AdminRoomController {
         this.repository = repository;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/admin/room/list";
+    }
+
     @GetMapping("/list")
     public String list(@ModelAttribute SelectDto selectDto, Model model) {
         if (selectDto == null) {
