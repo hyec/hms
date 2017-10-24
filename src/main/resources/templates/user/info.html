@@ -22,24 +22,36 @@
 </nav>
 
 <div class="container">
-
-    <table class="table table-striped">
-        <tr>
-            <th>username</th>
-            <th>name</th>
-            <th>gender</th>
-            <th>idNum</th>
-        </tr>
-        <tr>
-            <th th:text="${user.username}"></th>
-            <th th:text="${user.name}"></th>
-            <th th:text="${user.gender}"></th>
-            <th th:text="${user.idNum}"></th>
-        </tr>
-    </table>
-
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">用户名:</label>
+            <div class="col-sm-6">
+                <p id="username" class="form-control-static" th:text="${user.username}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">姓名:</label>
+            <div class="col-sm-6">
+                <p id="name" class="form-control-static" th:text="${user.name}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">性别:</label>
+            <div class="col-sm-6">
+                <p id="type" class="form-control-static" th:text="${user.gender}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="idNum" class="col-sm-2 control-label">身份证:</label>
+            <div class="col-sm-6">
+                <p id="idNum" class="form-control-static" th:text="${user.idNum}"></p>
+            </div>
+        </div>
+    </form>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
 </body>
 </html>

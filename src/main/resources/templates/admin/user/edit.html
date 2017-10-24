@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <link rel="stylesheet" href="../../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
-<body>
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Example</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
 
 <!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
-<div>
+
+<div class="container">
     <form th:action="@{/admin/user/edit}" th:method="post" th:object="${user}" class="form-horizontal">
         <input type="hidden" th:field="*{id}">
         <div class="form-group">
@@ -35,17 +53,23 @@
                 </select>
             </div>
         </div>
-        <div>
-            <label for="idNum" class="col-sm-2 control-label">身份证号码</label>
+        <div class="form-group">
+            <label for="idNum" class="col-sm-2 control-label">身份证</label>
             <div class="col-sm-6">
                 <input id="idNum" class="form-control" th:field="*{idNum}" required>
             </div>
         </div>
-        <div class="col-sm-offset-2 col-sm-10">
-            <p></p>
-            <button type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-default center-block">提交</button>
+            </div>
         </div>
     </form>
 </div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
+
 </body>
 </html>
