@@ -26,7 +26,7 @@ public class AdminUserController {
         this.repository = repository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/user/list";
     }

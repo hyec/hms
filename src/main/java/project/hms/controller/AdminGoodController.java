@@ -25,7 +25,7 @@ public class AdminGoodController {
         this.repository = repository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/good/list";
     }

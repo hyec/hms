@@ -34,7 +34,7 @@ public class AdminOrderController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/order/list";
     }

@@ -21,7 +21,7 @@ public class AdminController {
         this.users = users;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/user/list";
     }

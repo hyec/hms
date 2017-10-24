@@ -26,7 +26,7 @@ public class AdminRoomController {
         this.repository = repository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/room/list";
     }

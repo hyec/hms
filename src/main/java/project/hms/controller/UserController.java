@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import project.hms.data.dto.UserDto;
 import project.hms.model.User;
 import project.hms.repository.UserRepository;
@@ -31,10 +30,9 @@ public class UserController {
     }
 
     @GetMapping({"", "/"})
-    @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public User index(Principal principal) {
-        return users.findByUsername(principal.getName());
+    public String index() {
+        return "redirect:/user/info";
     }
 
     @GetMapping("/login")
