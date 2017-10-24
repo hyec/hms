@@ -1,5 +1,6 @@
 package project.hms.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class CleanRoomController {
     }
 
     @GetMapping("/clean")
+    @Secured({"CLEANER", "CASHIER", "MANAGER"})
     public String clean(RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("multi", true);
         redirectAttributes.addAttribute("action", "/admin/clean");
@@ -30,6 +32,7 @@ public class CleanRoomController {
     }
 
     @PostMapping("/clean")
+    @Secured({"CLEANER", "CASHIER", "MANAGER"})
     public String cleanPOST(@RequestParam("room") Integer[] id) {
         Optional<Room> roomOptional;
         Room room;

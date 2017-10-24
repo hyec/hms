@@ -2,6 +2,7 @@ package project.hms.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,12 +31,14 @@ public class AdminGoodController {
     }
 
     @GetMapping("/list")
+    @Secured({"CASHIER", "MANAGER"})
     public String list(Model model) {
         model.addAttribute("goods", repository.findAll());
         return "good/list";
     }
 
     @GetMapping("/info")
+    @Secured({"CASHIER", "MANAGER"})
     public String info(@RequestParam("id") Integer id, Model model) throws Exception {
 
         Optional<Good> goodOptional = repository.findById(id);
@@ -49,6 +52,7 @@ public class AdminGoodController {
     }
 
     @GetMapping("/edit")
+    @Secured({"MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -68,6 +72,7 @@ public class AdminGoodController {
     }
 
     @PostMapping("/edit")
+    @Secured({"MANAGER"})
     public String editPOST(@ModelAttribute("goods") @Valid Good good, BindingResult result) {
 
         if (result.hasErrors()) {

@@ -1,6 +1,7 @@
 package project.hms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class AdminRoomController {
     }
 
     @GetMapping("/list")
+    @Secured({"CASHIER", "MANAGER"})
     public String list(@ModelAttribute SelectDto selectDto, Model model) {
         if (selectDto == null) {
             selectDto = new SelectDto();
@@ -42,6 +44,7 @@ public class AdminRoomController {
     }
 
     @GetMapping("/info")
+    @Secured({"CASHIER", "MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -56,6 +59,7 @@ public class AdminRoomController {
 
 
     @GetMapping("/edit")
+    @Secured({"MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -75,6 +79,7 @@ public class AdminRoomController {
     }
 
     @PostMapping("/edit")
+    @Secured({"MANAGER"})
     public String editPOST(@Valid Room room, BindingResult result) {
 
         if (result.hasErrors()) {
