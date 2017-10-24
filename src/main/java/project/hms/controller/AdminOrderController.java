@@ -1,6 +1,7 @@
 package project.hms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,12 +26,10 @@ public class AdminOrderController {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    // private final RoomRepository roomRepository;
 
     @Autowired
     public AdminOrderController(OrderRepository orderRepository, RoomRepository roomRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
-        //this.roomRepository = roomRepository;
         this.userRepository = userRepository;
     }
 
@@ -40,6 +39,7 @@ public class AdminOrderController {
     }
 
     @GetMapping("/list")
+    @Secured({"CASHIER", "MANAGER"})
     public String list(Model model) {
         model.addAttribute("orders", orderRepository.findAll());
         return "order/list";
@@ -47,6 +47,7 @@ public class AdminOrderController {
 
 
     @GetMapping("/info")
+    @Secured({"CASHIER", "MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -60,6 +61,7 @@ public class AdminOrderController {
     }
 
     @PostMapping("/edit/user")
+    @Secured({"CASHIER", "MANAGER"})
     public String editUser(@RequestParam(value = "user", required = false) List<Integer> staysId, @RequestParam("orderId") Integer orderId) throws Exception {
         Optional<Order> orderOptional = orderRepository.findById(orderId);
         if (!orderOptional.isPresent()) {
@@ -83,6 +85,7 @@ public class AdminOrderController {
     }
 
     @GetMapping("/edit")
+    @Secured({"CASHIER", "MANAGER"})
     public String edit(@RequestParam(value = "id") Integer id,
                        Model model) throws Exception {
 
@@ -92,11 +95,11 @@ public class AdminOrderController {
         }
 
         model.addAttribute("order", orderOptional.get());
-        //model.addAttribute("emptyRooms", roomRepository.findAllByStatus(RoomStatus.EMPTY));
         return "order/edit";
     }
 
     @PostMapping("/edit")
+    @Secured({"CASHIER", "MANAGER"})
     public String editPOST(@ModelAttribute("order") @Valid Order order, BindingResult result) throws Exception {
         if (result.hasErrors()) {
             throw new Exception("Error");

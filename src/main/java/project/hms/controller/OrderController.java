@@ -12,7 +12,6 @@ import project.hms.model.User;
 import project.hms.model.enums.OrderStatus;
 import project.hms.model.enums.RoomStatus;
 import project.hms.repository.OrderRepository;
-import project.hms.repository.RoomRepository;
 import project.hms.repository.UserRepository;
 import project.hms.service.OrderService;
 
@@ -27,24 +26,20 @@ public class OrderController {
 
     private final UserRepository userRepository;
 
-    private final RoomRepository roomRepository;
-
     private final OrderRepository orderRepository;
 
     private final OrderService orderService;
     @Autowired
     public OrderController(UserRepository userRepository,
-                           RoomRepository roomRepository,
                            OrderRepository orderRepository,
                            OrderService orderService) {
         this.userRepository = userRepository;
-        this.roomRepository = roomRepository;
         this.orderRepository = orderRepository;
         this.orderService = orderService;
     }
 
     @GetMapping("/new")
-    public String newGET(OrderDto orderDto) {
+    public String newGET() {
         return "order/newOrder";
     }
 
@@ -59,13 +54,9 @@ public class OrderController {
         try {
             user = userRepository.findByUsername(principal.getName());
         } catch (NullPointerException e) {
-            System.out.println("未登录");
             return "redirect:/user/login";
         }
-        /*if (userOptional.isPresent()) {
-            result.rejectValue("username", "Username already exists.");
-            return "register";
-        }*/
+
 
         List<Room> availableRooms = orderService.getAvailableRooms(orderDto.getRoomType(), orderDto.getCheckInTime(), orderDto.getCheckOutTime());
         if (availableRooms.isEmpty()) {
@@ -87,7 +78,7 @@ public class OrderController {
 
     @PostMapping("/searchroom")
     @ResponseBody
-    public String searchRoom(@Valid OrderDto orderDto, BindingResult result, Model model) throws Exception {
+    public String searchRoom(@Valid OrderDto orderDto, BindingResult result) throws Exception {
         if (result.hasErrors()) {
             throw new Exception("Error");
         }
@@ -109,4 +100,5 @@ public class OrderController {
         orderRepository.save(order);
         return "redirect:/good/paid";
     }
+
 }
