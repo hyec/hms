@@ -104,7 +104,7 @@ public class UserController {
         savedUser = users.findByUsername(principal.getName());
         ModelTool.merge(user, savedUser);
         users.save(savedUser);
-        return "redirect:user/info?id=" + savedUser.getId();
+        return "redirect:/user/info";
     }
 
 }

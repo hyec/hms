@@ -44,8 +44,8 @@
                         <input type="checkbox" name="user" title="" value="" th:title="${user.username}"
                                th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${user.id}">
                     </th>
-                    <th th:text="${user.username}">
-                        <a th:href="@{/admin/user/info(id=${user.id})}">Test</a>
+                    <th>
+                        <a th:text="${user.username}" th:href="@{/admin/user/info(id=${user.id})}">Test</a>
                     </th>
                     <th th:text="${user.name}">Test</th>
                     <th th:text="${user.gender}">Male</th>
