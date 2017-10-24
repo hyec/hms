@@ -1,31 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<body>
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Example</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
+
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav_admin">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
 
 <!--/*@thymesVar id="order" type="project.hms.model.Order"*/-->
-<form th:action="@{/admin/order/edit}" th:method="post" th:object="${order}">
+<div class="container ">
+    <div class="row">
+        <h2>编辑订单</h2>
+    </div>
+    <form id="form" th:action="@{/admin/order/edit}" th:method="POST" th:object="${order}">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-hover table-table-striped" id="list">
+                        <thead>
+                        <tr>
+                            <th>username</th>
+                            <th>name</th>
+                            <th>gender</th>
+                            <th>idNum</th>
+                        </tr>
 
-    <input type="hidden" th:field="*{id}">
-    <input type="hidden" th:field="*{room}">
-    <input type="hidden" th:field="*{owner}">
-    <input type="hidden" th:field="*{price}">
-    <input type="hidden" th:field="*{checkInTime}">
-    <input type="hidden" th:field="*{checkOutTime}">
-    <input type="hidden" th:field="*{stays}">
+                        </thead>
+                        <tbody>
+                        <tr class="users-row" th:each="user : ${order.stays}">
+                            <td th:text="${user.username}">Test</td>
+                            <td th:text="${user.name}">Test</td>
+                            <td th:text="${user.gender}">Male</td>
+                            <td th:text="${user.idNum}">123</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input type="button" id="choose" class="btn btn-info center-block" value="选择住户">
+                </div>
 
-    <label for="status">类型</label>
-    <select id="status" th:field="*{status}" required>
-        <option selected disabled hidden>请选择</option>
-        <option value="UNPAID">未付钱</option>
-        <option value="PAID">已付钱</option>
-        <option value="CHECK_IN">入住</option>
-        <option value="COMPLETED">订单完成</option>
-        <option value="NOSHOW">预定人未到达</option>
-        <option value="CANCEL">取消</option>
-    </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <input type="hidden" th:field="*{id}">
+                    <label for="status">订单状态</label>
+                    <select id="status" th:field="*{status}" required>
+                        <option value="UNPAID">未付钱</option>
+                        <option value="PAID">已付钱</option>
+                        <option value="CHECK_IN">入住</option>
+                        <option value="COMPLETED">订单完成</option>
+                        <option value="NOSHOW">预定人未到达</option>
+                        <option value="CANCEL">取消</option>
+                    </select>
+                </div>
 
-    <button type="submit">提交</button>
+            </div>
+        </div>
 
-</form>
+        <div class="row">
+            <input type="submit" class="btn btn-success center-block">
+        </div>
+    </form>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<footer th:replace="layout :: footer"></footer>
+
+<!--Use this when you page don't need JS.-->
+<!--<th:block th:replace="layout :: scripts" />-->
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/theme-scripts.js"></script>
+</th:block>
+
+<script>window.jQuery || alert("jQuary load failed.");</script>
+<script th:inline="javascript">
+    $('#choose').click(function () {
+        $.get("/admin/user/list?multi=true&action=/admin/order/edit/user?orderId=[[${order.getId()}]]",
+            function (data) {
+                var body = $(data).filter(".container");
+                body.addClass("container-fluid").removeClass("container");
+                $('.modal-body').append(body)
+            });
+        $("#myModal").modal({show: true});
+    });
+    $("#myModal").on("hidden.bs.modal", function () {
+        $('.modal-body').empty()
+    });
+</script>
 </body>
 </html>

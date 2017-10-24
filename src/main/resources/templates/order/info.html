@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<body>
-<!--/*@thymesVar id="order" type="project.hms.model.Order"*/-->
-<p th:text="${order.room.number}"></p>
-<p th:text="${order.owner.name}"></p>
-<p th:text="${order.price}"></p>
-<p th:text="${order.status}"></p>
-<div th:each="user : ${order.stays}">
-    <p th:text="${user.name}"></p>
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Example</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
+
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav_admin">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <h2>订单信息</h2>
+    </div>
+    <!--/*@thymesVar id="order" type="project.hms.model.Order"*/-->
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-table-striped" id="list">
+                    <thead>
+                    <tr>
+                        <th>房号</th>
+                        <th>预定人</th>
+                        <th>订单总价</th>
+                        <th>订单状态</th>
+                        <th>入住人</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${order.room.number}">test</td>
+                        <td><a th:href="@{/admin/user/info(id=${order.getOwner().getId()})}"
+                               th:text="${order.owner.getName()}">test</a></td>
+                        <td th:text="${order.price}">test</td>
+                        <td th:text="${order.status}">test</td>
+                        <td>
+                            <div th:each="stay : ${order.stays}">
+                                <a th:href="@{/admin/user/info(id=${stay.getId()})}"
+                                   th:text="${stay.getName()}">test</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<!--Use this when you page don't need JS.-->
+<!--<th:block th:replace="layout :: scripts" />-->
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/theme-scripts.js"></script>
+</th:block>
+
+<script>window.jQuery || alert("jQuary load failed.");</script>
+
 </body>
 </html>
