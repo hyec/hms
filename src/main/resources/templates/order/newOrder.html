@@ -155,7 +155,6 @@
         var type = $.urlParam('type');
         $('.btn-group').find('a').each(function () {
             if ($(this).find('input').data('type') === type) {
-                a = $(this);
                 $(this).click();
             }
         })
