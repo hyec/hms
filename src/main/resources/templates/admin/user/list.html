@@ -21,39 +21,44 @@
 
 <!--/*@thymesVar id="users" type="java.util.List<project.hms.model.User>"*/-->
 <!--/*@thymesVar id="sel" type="project.hms.data.dto.SelectDto"*/-->
-<div id="container">
+<!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
+<div class="container">
     <form id="form" th:action="${sel.action}" th:method="${sel.method}">
-        <table class="table table-striped" id="list">
-            <thead>
-            <tr>
-
-                <th th:if="${sel.select}"></th>
-                <th>username</th>
-                <th>name</th>
-                <th>gender</th>
-                <th>idNum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-                <th th:if="${sel.select}">
-                    <input type="checkbox" name="user" title="" value="" th:title="${user.username}"
-                           th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${user.id}">
-                </th>
-                <th th:text="${user.username}">Test</th>
-                <th th:text="${user.name}">Test</th>
-                <th th:text="${user.gender}">Male</th>
-                <th th:text="${user.idNum}">123</th>
-            </tr>
-
-
-            </tbody>
-        </table>
-
-        <button class="btn btn-primary" type="submit" th:if="${sel.select}">选择</button>
-
+        <div class="panel panel-default">
+            <table class="table table-striped" id="list">
+                <thead>
+                <tr>
+                    <th th:if="${sel.select}"></th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>身份证</th>
+                    <th th:if="${!sel.select && userInfo.isManager()}">
+                        <a th:if="${!sel.select}" th:href="@{/admin/user/edit}">添加</a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <th th:if="${sel.select}">
+                        <input type="checkbox" name="user" title="" value="" th:title="${user.username}"
+                               th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${user.id}">
+                    </th>
+                    <th th:text="${user.username}">
+                        <a th:href="@{/admin/user/info(id=${user.id})}">Test</a>
+                    </th>
+                    <th th:text="${user.name}">Test</th>
+                    <th th:text="${user.gender}">Male</th>
+                    <th th:text="${user.idNum}">123</th>
+                    <th th:if="${!sel.select && userInfo.isManager()}">
+                        <a th:href="@{/admin/user/edit(id=${user.id})}">编辑</a>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-primary center-block" type="submit" th:if="${sel.select}">选择</button>
     </form>
-
 </div>
 
 <footer th:replace="layout :: footer"></footer>
