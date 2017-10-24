@@ -99,6 +99,6 @@ public class AdminEmployeeController {
         employee.setPerformance(0);
         employee.setType(EmployeeType.CLEANER);
         employee = employeeRepository.save(employee);
-        return "redirect:/admin/employee/edit?id=" + employee.getUser().getId();
+        return "redirect:/admin/employee/edit?id=" + employee.getId();
     }
 }
