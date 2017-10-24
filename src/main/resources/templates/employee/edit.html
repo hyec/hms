@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<body>
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工信息编辑</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
 
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
 <!--/*@thymesVar id="employee" type="project.hms.model.Employee"*/-->
-<form th:action="@{/admin/employee/edit}" th:method="post" th:object="${employee}">
+<div class="container">
+    <form th:action="@{/admin/employee/edit}" th:method="post" th:object="${employee}">
 
-    <input type="hidden" th:field="*{id}">
-
-
-    <label for="performance">绩效</label>
-    <input type="number" id="performance" th:field="*{performance}" required>
+        <input type="hidden" th:field="*{id}">
 
 
-    <label for="type">类型</label>
-    <select id="type" th:field="*{type}" required>
-        <option disabled hidden value="">请选择</option>
-        <option value="MANAGER">经理</option>
-        <option value="CLEANER">清洁工</option>
-        <option value="CASHIER">前台</option>
-    </select>
+        <label for="performance">绩效</label>
+        <input type="number" id="performance" th:field="*{performance}" required>
 
 
-    <button type="submit">提交</button>
+        <label for="type">类型</label>
+        <select id="type" th:field="*{type}" required>
+            <option disabled hidden value="">请选择</option>
+            <option value="MANAGER">经理</option>
+            <option value="CLEANER">清洁工</option>
+            <option value="CASHIER">前台</option>
+        </select>
 
-</form>
+
+        <button type="submit">提交</button>
+
+    </form>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
 </body>
 </html>

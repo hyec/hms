@@ -1,29 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<body>
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>房间编辑</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
 
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
 <!--/*@thymesVar id="room" type="project.hms.model.Room"*/-->
-<form th:action="@{/admin/room/edit}" th:method="post" th:object="${room}">
+<div class="container">
+    <form th:action="@{/admin/room/edit}" th:method="post" th:object="${room}">
 
-    <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{id}">
 
-    <label for="number">房号</label>
-    <input type="number" id="number" th:field="*{number}" required>
+        <label for="number">房号</label>
+        <input type="number" id="number" th:field="*{number}" required>
 
-    <label for="price">价格</label>
-    <input id="price" th:field="*{price}" required>
+        <label for="price">价格</label>
+        <input id="price" th:field="*{price}" required>
 
-    <label for="type">类型</label>
-    <select id="type" name="type" th:field="*{type}" required>
-        <option disabled hidden value="">请选择</option>
-        <option value="SINGLE">单人间</option>
-        <option value="DOUBLE">双人间</option>
-        <option value="FAMILY">家庭房</option>
-        <option value="KINGSIZE">大床房</option>
-    </select>
+        <label for="status">状态</label>
+        <input id="status" th:field="*{status}" required>
 
-    <button type="submit">提交</button>
+        <label for="type">类型</label>
+        <select id="type" name="type" th:field="*{type}" required>
+            <option disabled hidden value="">请选择</option>
+            <option value="SINGLE">单人间</option>
+            <option value="DOUBLE">双人间</option>
+            <option value="FAMILY">家庭房</option>
+            <option value="KINGSIZE">大床房</option>
+        </select>
 
-</form>
+        <button type="submit">提交</button>
+
+    </form>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
 </body>
 </html>
