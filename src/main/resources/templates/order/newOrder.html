@@ -90,60 +90,77 @@
 <script src="../../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
 <script src="../../static/js/daterangepicker.js" th:src="@{/js/daterangepicker.js}"></script>
 <script type="text/javascript">
-
-  function ajax_post() {
-    if ($('#roomtype').val() !== '' && $('#starttime').val() !== '') {
-      $.ajax({
-        type: 'POST',
-        url: '/order/searchroom',
-        data: $('form').serialize(),
-        success: function (data) {
-          if (data === '-1') {
-            $('.alert-success').hide();
-            $('.alert-danger').show();
-          } else {
-            $('.alert-danger').hide();
-            $('#roomnum').text(data);
-            $('.alert-success').show();
-          }
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results === null) {
+            return null;
         }
-      });
+        else {
+            return decodeURI(results[1]) || 0;
+        }
+    };
+
+    function ajax_post() {
+        if ($('#roomtype').val() !== '' && $('#starttime').val() !== '') {
+            $.ajax({
+                type: 'POST',
+                url: '/order/searchroom',
+                data: $('form').serialize(),
+                success: function (data) {
+                    if (data === '-1') {
+                        $('.alert-success').hide();
+                        $('.alert-danger').show();
+                    } else {
+                        $('.alert-danger').hide();
+                        $('#roomnum').text(data);
+                        $('.alert-success').show();
+                    }
+                }
+            });
+        }
     }
-  }
 
-  $(function () {
-    $("[data-toggle='toogle']").tooltip('toggle');
-    $('#date').daterangepicker(
-      {
-        locale: {
-          applyLabel: '确认',
-          cancelLabel: '取消',
-          fromLabel: '从',
-          toLabel: '到',
-          weekLabel: 'W',
-          customRangeLabel: 'Custom Range',
-          daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
-          monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
-        },
-        endDate: moment().add(1, 'days').format('MM/DD/YYYY'),
-        autoApply: true,
-        minDate: moment().format('MM/DD/YYYY')
-      }, function (start, end) {
-        if (start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')) {
-          alert("入住，离店不能为同一天！");
-          end.add(1, 'days');
-        }
-        $('#starttime').val(start.format('YYYY-MM-DD')).change();
-        $('#endtime').val(end.format('YYYY-MM-DD')).change();
-      }
-    ).val('').change(ajax_post);
+    $(function () {
+        $("[data-toggle='toogle']").tooltip('toggle');
+        $('#date').daterangepicker(
+            {
+                locale: {
+                    applyLabel: '确认',
+                    cancelLabel: '取消',
+                    fromLabel: '从',
+                    toLabel: '到',
+                    weekLabel: 'W',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                },
+                endDate: moment().add(1, 'days').format('MM/DD/YYYY'),
+                autoApply: true,
+                minDate: moment().format('MM/DD/YYYY')
+            }, function (start, end) {
+                if (start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')) {
+                    alert("入住，离店不能为同一天！");
+                    end.add(1, 'days');
+                }
+                $('#starttime').val(start.format('YYYY-MM-DD')).change();
+                $('#endtime').val(end.format('YYYY-MM-DD')).change();
+            }
+        ).val('').change(ajax_post);
 
-    $('.radio_btn').change(function () {
-      $('#roomtype').val($(this).data('type'));
-      ajax_post();
-    });
+        $('.radio_btn').change(function () {
+            $('#roomtype').val($(this).data('type'));
+            ajax_post();
+        });
 
-  })
+        var type = $.urlParam('type');
+        $('.btn-group').find('a').each(function () {
+            if ($(this).find('input').data('type') === type) {
+                a = $(this);
+                $(this).click();
+            }
+        })
+
+    })
 </script>
 </body>
 </html>
