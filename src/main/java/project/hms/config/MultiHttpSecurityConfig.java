@@ -31,7 +31,7 @@ public class MultiHttpSecurityConfig {
     }
 
     @Configuration
-    @EnableGlobalMethodSecurity(prePostEnabled = true)
+    @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
     public static class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override

@@ -220,12 +220,12 @@
         </div>
     </div>
 </section>
-<section id="portfolio">
+<section id="order">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-title">
-                    <h2>Portfolio</h2>
+                    <h2>介绍</h2>
                     <p>Our portfolio is the best way to show our work, you can see here a big range of our work. Check
                         them all and you will find what you are looking for.</p>
                 </div>
@@ -236,11 +236,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-1.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/single.jpg" th:src="@{/images/single.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Dean & Letter</h2>
-                            <p>Branding, Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
+                            <h2>单人房</h2>
+                            <p>简约, 舒适</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-single">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -250,11 +251,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-2.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/hotel.jpg" th:src="@{/images/hotel.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Startup Framework</h2>
-                            <p>Branding, Web Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            <h2>外景</h2>
+                            <p>低调, 奢华</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-hotel">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -264,11 +266,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-3.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/double.jpg" th:src="@{/images/double.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Lamp & Velvet</h2>
-                            <p>Branding, Web Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-3">View more</a>
+                            <h2>双人房</h2>
+                            <p>至尊, 享受</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-double">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -280,11 +283,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-4.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/kingsize.jpg" th:src="@{/images/kingsize.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Smart Name</h2>
-                            <p>Branding, Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-4">View more</a>
+                            <h2>大床房</h2>
+                            <p>甜蜜, 浪漫</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-kingsize">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -294,11 +298,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-5.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/office-bg.jpg" th:src="@{/images/office-bg.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Fast People</h2>
-                            <p>Branding, Web Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
+                            <h2>大堂</h2>
+                            <p>宾至, 如归</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-hotel">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -308,11 +313,12 @@
             <div class="col-md-4">
                 <div class="ot-portfolio-item">
                     <figure class="effect-bubba">
-                        <img src="../static/images/demo/portfolio-2.jpg" alt="img02" class="img-responsive"/>
+                        <img src="../static/images/family.jpg" th:src="@{/images/family.jpg}" alt="img02"
+                             class="img-responsive"/>
                         <figcaption>
-                            <h2>Kites & Stars</h2>
-                            <p>Branding, Web Design</p>
-                            <a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            <h2>家庭房</h2>
+                            <p>温馨, 宽敞</p>
+                            <a href="#" data-toggle="modal" data-target="#Modal-family">了解更多</a>
                         </figcaption>
                     </figure>
                 </div>
@@ -464,105 +470,112 @@
 </section>
 
 <!-- Modal for portfolio item 1 -->
-<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
+<div class="modal fade" id="Modal-single" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="Modal-label-1">Dean & Letter</h4>
+                <h4 class="modal-title" id="Modal-label-1">单人房</h4>
             </div>
             <div class="modal-body">
-                <img src="../static/images/demo/portfolio-1.jpg" alt="img01" class="img-responsive"/>
-                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <img src="../static/images/single.jpg" th:src="@{/images/single.jpg}" alt="img01"
+                     class="img-responsive"/>
+                <div class="modal-works"><span>简约</span><span>舒适</span></div>
                 <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-default" th:href="@{/order/new(type=SINGLE)}" data-dismiss="modal">预定</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal for portfolio item 2 -->
-<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
+<div class="modal fade" id="Modal-hotel" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="Modal-label-2">Startup Framework</h4>
+                <h4 class="modal-title" id="Modal-label-2">酒店外景</h4>
             </div>
             <div class="modal-body">
-                <img src="../static/images/demo/portfolio-2.jpg" alt="img01" class="img-responsive"/>
-                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <img src="../static/images/hotel.jpg" th:src="@{/images/hotel.jpg}" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>低调</span><span>奢华</span></div>
                 <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal for portfolio item 3 -->
-<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog" aria-labelledby="Modal-label-3">
+<div class="modal fade" id="Modal-double" tabindex="-1" role="dialog" aria-labelledby="Modal-label-3">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="Modal-label-3">Lamp & Velvet</h4>
+                <h4 class="modal-title" id="Modal-label-3">双人房</h4>
             </div>
             <div class="modal-body">
-                <img src="../static/images/demo/portfolio-3.jpg" alt="img01" class="img-responsive"/>
-                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <img src="../static/images/double.jpg" th:src="@{/images/double.jpg}" alt="img01"
+                     class="img-responsive"/>
+                <div class="modal-works"><span>至尊</span><span>享受</span></div>
                 <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-default" th:href="@{/order/new(type=DOUBLE)}" data-dismiss="modal">预定</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal for portfolio item 4 -->
-<div class="modal fade" id="Modal-4" tabindex="-1" role="dialog" aria-labelledby="Modal-label-4">
+<div class="modal fade" id="Modal-kingsize" tabindex="-1" role="dialog" aria-labelledby="Modal-label-4">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="Modal-label-4">Smart Name</h4>
+                <h4 class="modal-title" id="Modal-label-4">大床房</h4>
             </div>
             <div class="modal-body">
-                <img src="../static/images/demo/portfolio-4.jpg" alt="img01" class="img-responsive"/>
-                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <img src="../static/images/kingsize.jpg" th:src="@{/images/kingsize.jpg}" alt="img01"
+                     class="img-responsive"/>
+                <div class="modal-works"><span>甜蜜</span><span>浪漫</span></div>
                 <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal for portfolio item 5 -->
-<div class="modal fade" id="Modal-5" tabindex="-1" role="dialog" aria-labelledby="Modal-label-5">
+<div class="modal fade" id="Modal-family" tabindex="-1" role="dialog" aria-labelledby="Modal-label-5">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="Modal-label-5">Fast People</h4>
+                <h4 class="modal-title" id="Modal-label-5">家庭房</h4>
             </div>
             <div class="modal-body">
-                <img src="../static/images/demo/portfolio-5.jpg" alt="img01" class="img-responsive"/>
-                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <img src="../static/images/family.jpg" th:src="@{/images/family.jpg}" alt="img01"
+                     class="img-responsive"/>
+                <div class="modal-works"><span>温馨</span><span>宽敞</span></div>
                 <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-default" th:href="@{/order/new(type=FAMILY)}" data-dismiss="modal">预定</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>

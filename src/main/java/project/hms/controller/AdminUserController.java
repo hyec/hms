@@ -2,6 +2,7 @@ package project.hms.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/list")
+    @Secured({"CASHIER", "MANAGER"})
     public String list(@ModelAttribute SelectDto selectDto, Model model) {
         if (selectDto == null) {
             selectDto = new SelectDto();
@@ -42,6 +44,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/info")
+    @Secured({"CASHIER", "MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -56,6 +59,7 @@ public class AdminUserController {
 
 
     @GetMapping("/edit")
+    @Secured("MANAGER")
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -75,6 +79,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/edit")
+    @Secured("MANAGER")
     public String editPOST(@ModelAttribute("user") @Valid User user, BindingResult result) {
         User savedUser;
         Optional<User> userOptional = repository.findById(user.getId());
