@@ -83,17 +83,22 @@ public class AdminUserController {
     public String editPOST(@ModelAttribute("user") @Valid User user, BindingResult result) {
         User savedUser;
         Optional<User> userOptional = repository.findById(user.getId());
+
+        if (user.getPassword().length() > 0) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(null);
+        }
+
         if (userOptional.isPresent()) {
             savedUser = userOptional.get();
             ModelTool.merge(user, savedUser);
             user = savedUser;
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-
         savedUser = repository.save(user);
-        return "redirect:/admin/room/info?id=" + savedUser.getId();
+        return "redirect:/admin/user/info?id=" + savedUser.getId();
     }
 
 }

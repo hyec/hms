@@ -34,7 +34,7 @@ public class AdminGoodController {
     @Secured({"CASHIER", "MANAGER"})
     public String list(Model model) {
         model.addAttribute("goods", repository.findAll());
-        return "good/list";
+        return "admin/good/list";
     }
 
     @GetMapping("/info")
@@ -47,7 +47,7 @@ public class AdminGoodController {
         }
 
         model.addAttribute("goods", goodOptional.get());
-        return "good/info";
+        return "admin/good/info";
 
     }
 
@@ -68,7 +68,7 @@ public class AdminGoodController {
             model.addAttribute("goods", new Good());
         }
 
-        return "good/edit";
+        return "admin/good/edit";
     }
 
     @PostMapping("/edit")

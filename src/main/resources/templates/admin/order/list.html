@@ -3,11 +3,11 @@
 <head th:replace="layout :: head(~{::title}, ~{::style})">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>订单信息</title>
+    <title>订单列表</title>
     <!-- Bootstrap core CSS -->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../../static/css/style.css" rel="stylesheet">
+    <link href="../../../static/css/style.css" rel="stylesheet">
     <style></style>
 </head>
 <body id="page-top">
@@ -20,26 +20,28 @@
     </div>
 </nav>
 
+<!--/*@thymesVar id="orders" type="java.util.List<project.hms.model.Order>"*/-->
+<!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
 <div class="container">
     <div class="row">
-        <h2>订单信息</h2>
-    </div>
-    <!--/*@thymesVar id="order" type="project.hms.model.Order"*/-->
-    <div class="row">
+        <h2>订单列表</h2>
         <div class="panel panel-default">
             <div class="panel-body">
                 <table class="table table-hover table-table-striped" id="list">
                     <thead>
                     <tr>
+                        <th>订单号</th>
                         <th>房号</th>
                         <th>预定人</th>
                         <th>订单总价</th>
                         <th>订单状态</th>
                         <th>入住人</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.getId()}">test</td>
                         <td th:text="${order.room.number}">test</td>
                         <td><a th:href="@{/admin/user/info(id=${order.getOwner().getId()})}"
                                th:text="${order.owner.getName()}">test</a></td>
@@ -51,6 +53,10 @@
                                    th:text="${stay.getName()}">test</a>
                             </div>
                         </td>
+                        <td>
+                            <a th:if="${userInfo.isManager()}"
+                               th:href="@{/admin/order/edit(id=${order.getId()})}">编辑</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -61,16 +67,6 @@
 
 <footer th:replace="layout :: footer"></footer>
 
-<!--Use this when you page don't need JS.-->
-<!--<th:block th:replace="layout :: scripts" />-->
-
-<th:block th:replace="layout :: scripts">
-    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>
-    <script src="../../static/js/theme-scripts.js"></script>
-</th:block>
-
-<script>window.jQuery || alert("jQuary load failed.");</script>
-
+<th:block th:replace="layout :: scripts"/>
 </body>
 </html>

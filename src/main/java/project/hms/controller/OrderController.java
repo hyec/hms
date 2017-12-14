@@ -39,7 +39,7 @@ public class OrderController {
     }
 
     @GetMapping("/new")
-    public String newGET() {
+    public String newGET(@ModelAttribute OrderDto orderDto) {
         return "order/newOrder";
     }
 
@@ -98,7 +98,7 @@ public class OrderController {
         Order order = orderOptional.get();
         order.setStatus(OrderStatus.PAID);
         orderRepository.save(order);
-        return "redirect:/good/paid";
+        return "redirect:/";
     }
 
 }

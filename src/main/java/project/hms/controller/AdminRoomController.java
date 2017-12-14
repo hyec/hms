@@ -40,7 +40,7 @@ public class AdminRoomController {
 
         model.addAttribute("sel", selectDto);
         model.addAttribute("rooms", repository.findAll());
-        return "room/list";
+        return "admin/room/list";
     }
 
     @GetMapping("/info")
@@ -54,7 +54,7 @@ public class AdminRoomController {
         }
 
         model.addAttribute("room", roomOptional.get());
-        return "room/info";
+        return "admin/room/info";
     }
 
 
@@ -75,7 +75,7 @@ public class AdminRoomController {
             model.addAttribute("room", new Room());
         }
 
-        return "room/edit";
+        return "admin/room/edit";
     }
 
     @PostMapping("/edit")

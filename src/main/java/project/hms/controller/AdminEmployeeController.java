@@ -35,7 +35,7 @@ public class AdminEmployeeController {
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("employees", employeeRepository.findAll());
-        return "employee/list";
+        return "admin/employee/list";
     }
 
     @GetMapping("/info")
@@ -48,7 +48,7 @@ public class AdminEmployeeController {
         }
 
         model.addAttribute("employee", employeeOptional.get());
-        return "employee/info";
+        return "admin/employee/info";
     }
 
 
@@ -68,7 +68,7 @@ public class AdminEmployeeController {
             model.addAttribute("employee", new Employee());
         }
 
-        return "employee/edit";
+        return "admin/employee/edit";
     }
 
     @PostMapping("/edit")

@@ -42,7 +42,7 @@ public class AdminOrderController {
     @Secured({"CASHIER", "MANAGER"})
     public String list(Model model) {
         model.addAttribute("orders", orderRepository.findAll());
-        return "order/list";
+        return "admin/order/list";
     }
 
 
@@ -57,7 +57,7 @@ public class AdminOrderController {
         }
 
         model.addAttribute("order", orderOptional.get());
-        return "order/info";
+        return "admin/order/info";
     }
 
     @PostMapping("/edit/user")
@@ -95,7 +95,7 @@ public class AdminOrderController {
         }
 
         model.addAttribute("order", orderOptional.get());
-        return "order/edit";
+        return "admin/order/edit";
     }
 
     @PostMapping("/edit")

@@ -19,42 +19,42 @@
     </div>
 </nav>
 
-<!--/*@thymesVar id="users" type="java.util.List<project.hms.model.User>"*/-->
+<!--/*@thymesVar id="rooms" type="java.util.List<project.hms.model.Room>"*/-->
 <!--/*@thymesVar id="sel" type="project.hms.data.dto.SelectDto"*/-->
 <!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
 <div class="container">
     <form id="form" th:action="${sel.action}" th:method="${sel.method}">
         <div class="row">
-            <h2>用户列表</h2>
+            <h2>房间列表</h2>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <table class="table table-striped" id="list">
                         <thead>
                         <tr>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>性别</th>
-                            <th>身份证</th>
-                            <th>
-                                <a th:if="${!sel.select && userInfo.isManager()}"
-                                   th:href="@{/admin/user/edit}">添加</a>
+                            <th th:if="${sel.select}"></th>
+                            <th>房间号</th>
+                            <th>房间类型</th>
+                            <th>价格</th>
+                            <th>房间状态</th>
+                            <th th:if="${!sel.select && userInfo.isManager()}">
+                                <a th:if="${!sel.select}" th:href="@{/admin/room/edit}">添加</a>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${users}">
-                            <th>
-                                <a th:text="${user.username}" th:href="@{/admin/user/info(id=${user.id})}">Test</a>
+                        <tr th:each="room : ${rooms}">
+                            <th th:if="${sel.select}">
+                                <input type="checkbox" name="room" title="" value="" th:title="${room.number}"
+                                       th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${room.id}">
                             </th>
-                            <th th:text="${user.name}">Test</th>
-                            <th th:text="${user.gender}">Male</th>
-                            <th th:text="${user.idNum}">123</th>
                             <th>
-                                <a th:if="${!sel.select && userInfo.isManager()}"
-                                   th:href="@{/admin/user/edit(id=${user.id})}">编辑</a>
-                                <input th:if="${sel.select}" type="checkbox" name="user" value=""
-                                       th:title="${user.username}"
-                                       th:type="${sel.multi ? 'checkbox': 'radio'}" th:value="${user.id}">
+                                <a th:text="${room.number}" th:href="@{/admin/room/info(id=${room.id})}">Test</a>
+                            </th>
+                            <th th:text="${room.type}">Test</th>
+                            <th th:text="${room.price}">Test</th>
+                            <th th:text="${room.status}">Test</th>
+                            <th th:if="${!sel.select && userInfo.isManager()}">
+                                <a th:href="@{/admin/room/edit(id=${room.id})}">编辑</a>
                             </th>
                         </tr>
                         </tbody>
@@ -63,7 +63,6 @@
             </div>
         </div>
         <button class="btn btn-primary center-block" type="submit" th:if="${sel.select}">选择</button>
-
     </form>
 </div>
 
@@ -71,8 +70,8 @@
 
 <th:block th:replace="layout :: scripts">
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../../static/js/bootstrap.min.js"></script>
-    <script src="../../../static/js/theme-scripts.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/theme-scripts.js"></script>
 </th:block>
 
 </body>

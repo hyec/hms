@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <head th:replace="layout :: head(~{::title}, ~{::style})">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>员工信息</title>
+    <title>商品信息</title>
     <!-- Bootstrap core CSS -->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../../static/css/style.css" rel="stylesheet">
+    <link href="../../../static/css/style.css" rel="stylesheet">
     <style></style>
 </head>
 <body id="page-top">
 
-<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav_admin">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
             <li><a>登录</a></li>
         </ul>
     </div>
 </nav>
-<!--/*@thymesVar id="employee" type="project.hms.model.Employee"*/-->
+<!--/*@thymesVar id="goods" type="project.hms.model.Good"*/-->
 <div class="container">
-    <p th:text="${employee.user.name}"></p>
-    <p th:text="${employee.type}"></p>
-    <p th:text="${employee.performance}"></p>
+    <p th:text="${goods.name}"></p>
+    <p th:text="${goods.price}"></p>
+    <p th:text="${goods.description}"></p>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
