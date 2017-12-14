@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="../../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <head th:replace="layout :: head(~{::title}, ~{::style})">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>员工信息</title>
     <!-- Bootstrap core CSS -->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../../static/css/style.css" rel="stylesheet">
+    <link href="../../../static/css/style.css" rel="stylesheet">
     <style></style>
 </head>
 <body id="page-top">
@@ -22,9 +22,26 @@
 </nav>
 <!--/*@thymesVar id="employee" type="project.hms.model.Employee"*/-->
 <div class="container">
-    <p th:text="${employee.user.name}"></p>
-    <p th:text="${employee.type}"></p>
-    <p th:text="${employee.performance}"></p>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">雇员名:</label>
+            <div class="col-sm-6">
+                <p id="name" class="form-control-static" th:text="${employee.user.name}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">雇员种类:</label>
+            <div class="col-sm-6">
+                <p id="type" class="form-control-static" th:text="${employee.type}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="performance" class="col-sm-2 control-label">雇员绩效:</label>
+            <div class="col-sm-6">
+                <p id="performance" class="form-control-static" th:text="${employee.performance}"></p>
+            </div>
+        </div>
+    </form>
 </div>
 
 <footer th:replace="layout :: footer"></footer>

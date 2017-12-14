@@ -21,9 +21,26 @@
 </nav>
 <!--/*@thymesVar id="goods" type="project.hms.model.Good"*/-->
 <div class="container">
-    <p th:text="${goods.name}"></p>
-    <p th:text="${goods.price}"></p>
-    <p th:text="${goods.description}"></p>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">物品名:</label>
+            <div class="col-sm-6">
+                <p id="name" class="form-control-static" th:text="${goods.name}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">物品价格:</label>
+            <div class="col-sm-6">
+                <p id="price" class="form-control-static" th:text="${goods.price}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">物品描述:</label>
+            <div class="col-sm-6">
+                <p id="description" class="form-control-static" th:text="${goods.description}"></p>
+            </div>
+        </div>
+    </form>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
