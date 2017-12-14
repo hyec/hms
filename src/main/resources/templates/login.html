@@ -51,16 +51,18 @@
 
 
         <label for="username" class="sr-only">Email address</label>
-        <input id="username" name="username" class="form-control" placeholder="用户名" required autofocus>
+        <input id="username" name="username" class="form-control first" placeholder="用户名" required autofocus>
 
         <label for="password" class="sr-only">Password</label>
-        <input id="password" name="password" type="password" class="form-control" placeholder="密码" required>
+        <input id="password" name="password" type="password" class="form-control last" placeholder="密码" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
     </form>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
 
 </body>
 </html>

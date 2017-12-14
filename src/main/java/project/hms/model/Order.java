@@ -17,7 +17,7 @@ public class Order extends Base {
     private User owner;
 
     @Column(nullable = false)
-    private float price;
+    private Float price;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

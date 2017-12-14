@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <head th:replace="layout :: head(~{::title}, ~{::style})">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +12,7 @@
 </head>
 <body id="page-top">
 <!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
+<!--/*@thymesVar id="orders" type="java.util.List<project.hms.model.Order>"*/-->
 <nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
@@ -22,32 +22,89 @@
 </nav>
 
 <div class="container">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">用户名:</label>
-            <div class="col-sm-6">
-                <p id="username" class="form-control-static" th:text="${user.username}"></p>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">基本信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">用户名:</label>
+                            <div class="col-sm-6">
+                                <p class="form-control-static" th:text="${user.username}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">姓名:</label>
+                            <div class="col-sm-6">
+                                <p class="form-control-static" th:text="${user.name}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type" class="col-sm-2 control-label">性别:</label>
+                            <div class="col-sm-6">
+                                <p class="form-control-static" th:text="${user.gender}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="idNum" class="col-sm-2 control-label">身份证:</label>
+                            <div class="col-sm-6">
+                                <p class="form-control-static" th:text="${user.idNum}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">姓名:</label>
-            <div class="col-sm-6">
-                <p id="name" class="form-control-static" th:text="${user.name}"></p>
+    </div>
+
+
+    <div class="row" th:if="${orders.size() > 0}">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">订单信息</h3>
+                </div>
+                <ul class="list-group" th:each="order : ${orders}">
+                    <li class="list-group-item">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label">房间号:</label>
+                                <div class="col-sm-6">
+                                    <p id="username" class="form-control-static" th:text="${order.room.number}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">起止时间:</label>
+                                <div class="col-sm-6">
+                                    <p id="name" class="form-control-static"
+                                       th:text=" '' + ${order.checkInTime} + ' ~ ' + ${order.checkOutTime}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="type" class="col-sm-2 control-label">状态:</label>
+                                <div class="col-sm-6">
+                                    <p id="type" class="form-control-static" th:text="${order.status}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idNum" class="col-sm-2 control-label">价格:</label>
+                                <div class="col-sm-6">
+                                    <p id="idNum" class="form-control-static" th:text="${order.price}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
             </div>
         </div>
-        <div class="form-group">
-            <label for="type" class="col-sm-2 control-label">性别:</label>
-            <div class="col-sm-6">
-                <p id="type" class="form-control-static" th:text="${user.gender}"></p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="idNum" class="col-sm-2 control-label">身份证:</label>
-            <div class="col-sm-6">
-                <p id="idNum" class="form-control-static" th:text="${user.idNum}"></p>
-            </div>
-        </div>
-    </form>
+    </div>
+
 </div>
 
 <footer th:replace="layout :: footer"></footer>

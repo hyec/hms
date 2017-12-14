@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.hms.data.dto.UserDto;
+import project.hms.model.Order;
 import project.hms.model.User;
+import project.hms.model.enums.OrderStatus;
+import project.hms.repository.OrderRepository;
 import project.hms.repository.UserRepository;
 import project.hms.util.ModelTool;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,10 +27,12 @@ import java.util.Optional;
 public class UserController {
 
     private final UserRepository users;
+    private final OrderRepository orders;
 
     @Autowired
-    public UserController(UserRepository users) {
+    public UserController(UserRepository users, OrderRepository orders) {
         this.users = users;
+        this.orders = orders;
     }
 
     @GetMapping({"", "/"})
@@ -75,7 +81,22 @@ public class UserController {
     @GetMapping("/info")
     @PreAuthorize("isAuthenticated()")
     public String info(Principal principal, Model model) {
-        model.addAttribute("user", users.findByUsername(principal.getName()));
+        User user = users.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
+        List<Order> orderList = orders.findAllByOwner(user);
+        orderList.removeIf(e -> {
+            if (e.getStatus() == OrderStatus.UNPAID)
+                return false;
+            if (e.getStatus() == OrderStatus.PAID)
+                return false;
+            if (e.getStatus() == OrderStatus.CHECK_IN)
+                return false;
+            return true;
+        });
+
+        model.addAttribute("orders", orderList);
+
         return "user/info";
     }
 

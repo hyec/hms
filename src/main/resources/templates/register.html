@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
-<head>
+<head th:replace="layout :: head(~{::title}, ~{::style})">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-
     <!--/*@thymesVar id="title" type="java.lang.String"*/-->
-    <title th:text="${title}"></title>
-
+    <title>用户登陆</title>
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
@@ -16,11 +14,23 @@
     <link href="../static/css/ie10-viewport-bug-workaround.css"
           th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
 
-    <!--<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">-->
-
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <style></style>
 </head>
-<body>
+<body id="page-top">
 
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container">
 
@@ -32,7 +42,7 @@
 
 
         <label for="username" class="sr-only">用户名</label>
-        <input id="username" th:field="*{username}" class="form-control" placeholder="用户名" required autofocus>
+        <input id="username" th:field="*{username}" class="form-control first" placeholder="用户名" required autofocus>
 
         <label for="password" class="sr-only">密码</label>
         <input id="password" th:field="*{password}" type="password" class="form-control" placeholder="密码" required>
@@ -41,10 +51,11 @@
         <input id="matchingPassword" th:field="*{matchingPassword}" type="password" class="form-control"
                placeholder="重复" required>
 
-        <label for="type">性别</label>
+        <label for="type" class="sr-only">性别</label>
 
-        <select id="type" name="gender" th:field="*{gender}" required>
-            <option disabled hidden value="">请选择</option>
+        <select id="type" class="form-control unselected" name="gender" th:field="*{gender}" title="All continents"
+                required>
+            <option selected disabled value="">性别</option>
             <option value="MALE">男</option>
             <option value="FEMALE">女</option>
         </select>
@@ -53,11 +64,27 @@
         <input id="name" th:field="*{name}" class="form-control" placeholder="姓名" required>
 
         <label for="idNum" class="sr-only">身份证号</label>
-        <input id="idNum" th:field="*{idNum}" class="form-control" placeholder="身份证号" required>
+        <input id="idNum" th:field="*{idNum}" class="form-control last" placeholder="身份证号" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
     </form>
 </div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/theme-scripts.js"></script>
+</th:block>
+
+<script>
+    (function ($) {
+        $('select').change(function () {
+            $(this).removeClass('unselected');
+        });
+    })(jQuery);
+</script>
 
 </body>
 </html>
