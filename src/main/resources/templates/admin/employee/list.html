@@ -20,15 +20,44 @@
         </ul>
     </div>
 </nav>
+<!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
 <!--/*@thymesVar id="employees" type="java.util.List<project.hms.model.Employee>"*/-->
 <div class="container">
-    <div th:each="employee : ${employees}">
-        <p th:text="${employee.user.name}"></p>
-        <p th:text="${employee.type}"></p>
-        <p th:text="${employee.performance}"></p>
+    <div class="row">
+        <h2>员工列表</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-table-striped" id="list">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>姓名</th>
+                        <th>职位</th>
+                        <th>绩效</th>
+                        <th>
+                            <a th:if="${userInfo.isManager()}"
+                               th:href="@{/admin/user/list(select=true,action='/admin/employee/new',method='post')}">
+                                添加
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.id}">test</td>
+                        <td th:text="${employee.user.name}">test</td>
+                        <td th:text="${employee.type}">test</td>
+                        <td th:text="${employee.performance}">test</td>
+                        <td>
+                            <a th:if="${userInfo.isManager()}"
+                               th:href="@{/admin/employee/edit(id=${employee.id})}">编辑</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <a class="btn btn-primary"
-       th:href="@{/admin/user/list(select=true,action='/admin/employee/new',method='post')}">添加新员工</a>
 </div>
 
 <footer th:replace="layout :: footer"></footer>

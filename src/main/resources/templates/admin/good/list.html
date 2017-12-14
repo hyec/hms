@@ -20,12 +20,40 @@
     </div>
 </nav>
 <!--/*@thymesVar id="goods" type="java.util.List<project.hms.model.Good>"*/-->
+<!--/*@thymesVar id="userInfo" type="project.hms.data.UserInfo"*/-->
 <div class="container">
-    <form th:each="good : ${goods}">
-        <p th:text="${good.name}"></p>
-        <p th:text="${good.price}"></p>
-        <p th:text="${good.description}"></p>
-    </form>
+    <div class="row">
+        <h2>商品列表</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-table-striped" id="list">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>价格</th>
+                        <th>
+                            <a th:if="${userInfo.isManager()}" th:href="@{/admin/good/edit}">添加</a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="good : ${goods}">
+                        <td th:text="${good.id}">test</td>
+                        <td th:text="${good.name}">test</td>
+                        <td th:text="${good.description}">test</td>
+                        <td th:text="${good.price}">test</td>
+                        <td>
+                            <a th:if="${userInfo.isManager()}"
+                               th:href="@{/admin/good/edit(id=${good.id})}">编辑</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
