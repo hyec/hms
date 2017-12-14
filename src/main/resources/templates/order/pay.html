@@ -22,12 +22,19 @@
 </nav>
 <!--/*@thymesVar id="unpaidOrder" type="project.hms.model.Order"*/-->
 <div class="container">
-    <p th:text="${unpaidOrder.owner.name}"></p>
-    <p th:text="${unpaidOrder.getRoom().number}"></p>
-    <p th:text="${unpaidOrder.checkOutTime}"></p>
-    <p th:text="${unpaidOrder.checkInTime}"></p>
-    <p th:text="${unpaidOrder.price}"></p>
-    <a th:href="@{/order/confirmPay(id=${unpaidOrder.getId()})}">支付</a>
+    <div class="panel-body text-center">
+        <ul class="list-group">
+            <li class="list-group-item">住户：<span th:text="${unpaidOrder.owner.name}">你好</span></li>
+            <li class="list-group-item">房间号：<span th:text="${unpaidOrder.getRoom().number}">你好</span></li>
+            <li class="list-group-item">退房时间：<span th:text="${unpaidOrder.checkOutTime}">你好</span></li>
+            <li class="list-group-item">入住时间：<span th:text="${unpaidOrder.checkInTime}">你好</span></li>
+            <li class="list-group-item">价格：<span th:text="${unpaidOrder.price}">你好</span></li>
+        </ul>
+
+
+        <input type="button" class="btn btn-success" th:href="@{/order/confirmPay(id=${unpaidOrder.getId()})}"
+               value="支付">
+    </div>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
