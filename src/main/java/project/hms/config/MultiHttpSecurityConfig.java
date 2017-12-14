@@ -45,6 +45,11 @@ public class MultiHttpSecurityConfig {
                     .loginPage("/user/login").permitAll()
                     .and()
 
+                    .logout()
+                    .logoutUrl("/user/logout").permitAll()
+                    .logoutSuccessUrl("/")
+                    .and()
+
                     .csrf().disable();
         }
     }
