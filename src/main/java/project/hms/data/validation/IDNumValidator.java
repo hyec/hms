@@ -61,7 +61,7 @@ public class IDNumValidator implements ConstraintValidator<ValidIDNum, String> {
 
         Character s = VERIFY_CODE[sum % 11];
 
-        if (!matcher.group(4).equals(s.toString())) {
+        if (!matcher.group(3).equals(s.toString())) {
             return false;
         }
         return true;
