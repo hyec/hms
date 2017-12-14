@@ -24,7 +24,7 @@ public class CleanRoomController {
     }
 
     @GetMapping("/clean")
-    @Secured({"CLEANER", "CASHIER", "MANAGER"})
+    @Secured({"ROLE_CLEANER", "ROLE_CASHIER", "ROLE_MANAGER"})
     public String clean(RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("multi", true);
         redirectAttributes.addAttribute("action", "/admin/clean");
@@ -32,7 +32,7 @@ public class CleanRoomController {
     }
 
     @PostMapping("/clean")
-    @Secured({"CLEANER", "CASHIER", "MANAGER"})
+    @Secured({"ROLE_CLEANER", "ROLE_CASHIER", "ROLE_MANAGER"})
     public String cleanPOST(@RequestParam("room") Integer[] id) {
         Optional<Room> roomOptional;
         Room room;

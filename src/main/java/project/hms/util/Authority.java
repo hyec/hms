@@ -10,10 +10,10 @@ import java.util.LinkedList;
 
 public class Authority {
 
-    public static GrantedAuthority USER_ROLE = new SimpleGrantedAuthority("USER");
-    public static GrantedAuthority CLEANER_ROLE = new SimpleGrantedAuthority("CLEANER");
-    public static GrantedAuthority CASHIER_ROLE = new SimpleGrantedAuthority("CASHIER");
-    public static GrantedAuthority MANAGER_ROLE = new SimpleGrantedAuthority("MANAGER");
+    public static GrantedAuthority USER_ROLE = new SimpleGrantedAuthority("ROLE_USER");
+    public static GrantedAuthority CLEANER_ROLE = new SimpleGrantedAuthority("ROLE_CLEANER");
+    public static GrantedAuthority CASHIER_ROLE = new SimpleGrantedAuthority("ROLE_CASHIER");
+    public static GrantedAuthority MANAGER_ROLE = new SimpleGrantedAuthority("ROLE_MANAGER");
 
     public static Collection<GrantedAuthority> getAuthorities(User user) {
         Collection<GrantedAuthority> authorities = new LinkedList<>();

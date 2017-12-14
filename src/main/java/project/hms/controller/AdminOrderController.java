@@ -39,7 +39,7 @@ public class AdminOrderController {
     }
 
     @GetMapping("/list")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String list(Model model) {
         model.addAttribute("orders", orderRepository.findAll());
         return "admin/order/list";
@@ -47,7 +47,7 @@ public class AdminOrderController {
 
 
     @GetMapping("/info")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -61,7 +61,7 @@ public class AdminOrderController {
     }
 
     @PostMapping("/edit/user")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String editUser(@RequestParam(value = "user", required = false) List<Integer> staysId, @RequestParam("orderId") Integer orderId) throws Exception {
         Optional<Order> orderOptional = orderRepository.findById(orderId);
         if (!orderOptional.isPresent()) {
@@ -85,7 +85,7 @@ public class AdminOrderController {
     }
 
     @GetMapping("/edit")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String edit(@RequestParam(value = "id") Integer id,
                        Model model) throws Exception {
 
@@ -99,7 +99,7 @@ public class AdminOrderController {
     }
 
     @PostMapping("/edit")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String editPOST(@ModelAttribute("order") @Valid Order order, BindingResult result) throws Exception {
         if (result.hasErrors()) {
             throw new Exception("Error");

@@ -32,7 +32,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/list")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String list(@ModelAttribute SelectDto selectDto, Model model) {
         if (selectDto == null) {
             selectDto = new SelectDto();
@@ -44,7 +44,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/info")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -59,7 +59,7 @@ public class AdminUserController {
 
 
     @GetMapping("/edit")
-    @Secured("MANAGER")
+    @Secured("ROLE_MANAGER")
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -79,7 +79,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/edit")
-    @Secured("MANAGER")
+    @Secured("ROLE_MANAGER")
     public String editPOST(@ModelAttribute("user") @Valid User user, BindingResult result) {
         User savedUser;
         Optional<User> userOptional = repository.findById(user.getId());

@@ -31,14 +31,14 @@ public class AdminGoodController {
     }
 
     @GetMapping("/list")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String list(Model model) {
         model.addAttribute("goods", repository.findAll());
         return "admin/good/list";
     }
 
     @GetMapping("/info")
-    @Secured({"CASHIER", "MANAGER"})
+    @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id, Model model) throws Exception {
 
         Optional<Good> goodOptional = repository.findById(id);
@@ -52,7 +52,7 @@ public class AdminGoodController {
     }
 
     @GetMapping("/edit")
-    @Secured({"MANAGER"})
+    @Secured({"ROLE_MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -72,7 +72,7 @@ public class AdminGoodController {
     }
 
     @PostMapping("/edit")
-    @Secured({"MANAGER"})
+    @Secured({"ROLE_MANAGER"})
     public String editPOST(@ModelAttribute("goods") @Valid Good good, BindingResult result) {
 
         if (result.hasErrors()) {

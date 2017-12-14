@@ -1,6 +1,7 @@
 package project.hms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,17 +29,20 @@ public class AdminEmployeeController {
     }
 
     @GetMapping({"", "/"})
+    @Secured({"ROLE_MANAGER"})
     public String index() {
         return "redirect:/admin/employee/list";
     }
 
     @GetMapping("/list")
+    @Secured({"ROLE_MANAGER"})
     public String list(Model model) {
         model.addAttribute("employees", employeeRepository.findAll());
         return "admin/employee/list";
     }
 
     @GetMapping("/info")
+    @Secured({"ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id,
                        Model model) throws Exception {
 
@@ -53,6 +57,7 @@ public class AdminEmployeeController {
 
 
     @GetMapping("/edit")
+    @Secured({"ROLE_MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
                        Model model) throws Exception {
 
@@ -72,6 +77,7 @@ public class AdminEmployeeController {
     }
 
     @PostMapping("/edit")
+    @Secured({"ROLE_MANAGER"})
     public String editPOST(@ModelAttribute("employee") @Valid Employee employee, BindingResult result) {
         Employee savedEmployee;
         Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
@@ -85,6 +91,7 @@ public class AdminEmployeeController {
     }
 
     @PostMapping("/new")
+    @Secured({"ROLE_MANAGER"})
     public String newPOST(@RequestParam("user") Integer id) throws Exception {
         Optional<User> userOptional = userRepository.findById(id);
         if (!userOptional.isPresent()) {
