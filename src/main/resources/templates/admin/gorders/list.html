@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品订单列表</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
+
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav_admin">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
+<!--/*@thymesVar id="goodOrder" type="java.util.List<project.hms.model.GoodOrder>"*/-->
+<div class="container">
+    <div class="row">
+        <h2>商品列表</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-table-striped" id="list">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>花费</th>
+                        <th>状态</th>
+                        <th>客人id</th>
+                        <th>房间id</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="gorder : ${goodOrder}">
+                        <td th:text="${gorder.id}">test</td>
+                        <td th:text="${gorder.cost}">test</td>
+                        <td th:text="${gorder.status}">test</td>
+                        <td th:text="${gorder.owner.id}">test</td>
+                        <td th:text="${gorder.room.id}">test</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
+</body>
+</html>
