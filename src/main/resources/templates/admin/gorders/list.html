@@ -31,17 +31,19 @@
                         <th>编号</th>
                         <th>花费</th>
                         <th>状态</th>
-                        <th>客人id</th>
-                        <th>房间id</th>
+                        <th>订房人</th>
+                        <th>房号</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="gorder : ${goodOrder}">
-                        <td th:text="${gorder.id}">test</td>
+                        <th>
+                            <a th:text="${gorder.id}" th:href="@{/admin/gorders/info(id=${gorder.id})}">Test</a>
+                        </th>
                         <td th:text="${gorder.cost}">test</td>
                         <td th:text="${gorder.status}">test</td>
-                        <td th:text="${gorder.owner.id}">test</td>
-                        <td th:text="${gorder.room.id}">test</td>
+                        <td th:text="${gorder.owner.name}">test</td>
+                        <td th:text="${gorder.room.number}">test</td>
                     </tr>
                     </tbody>
                 </table>

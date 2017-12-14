@@ -40,7 +40,9 @@
                     </thead>
                     <tbody>
                     <tr th:each="good : ${goods}">
-                        <td th:text="${good.id}">test</td>
+                        <th>
+                            <a th:text="${good.id}" th:href="@{/admin/good/info(id=${good.id})}">Test</a>
+                        </th>
                         <td th:text="${good.name}">test</td>
                         <td th:text="${good.description}">test</td>
                         <td th:text="${good.price}">test</td>
