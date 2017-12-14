@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.hms.data.dto.UserDto;
+import project.hms.model.GoodOrder;
 import project.hms.model.Order;
 import project.hms.model.User;
+import project.hms.model.enums.GoodsOrderStatus;
 import project.hms.model.enums.OrderStatus;
+import project.hms.repository.GoodOrderRepository;
 import project.hms.repository.OrderRepository;
 import project.hms.repository.UserRepository;
 import project.hms.util.ModelTool;
@@ -28,11 +31,13 @@ public class UserController {
 
     private final UserRepository users;
     private final OrderRepository orders;
+    private final GoodOrderRepository gorders;
 
     @Autowired
-    public UserController(UserRepository users, OrderRepository orders) {
+    public UserController(UserRepository users, OrderRepository orders, GoodOrderRepository gorders) {
         this.users = users;
         this.orders = orders;
+        this.gorders = gorders;
     }
 
     @GetMapping({"", "/"})
@@ -57,10 +62,15 @@ public class UserController {
             return "register";
         }
 
+        if (!userDto.getPassword().equals(userDto.getMatchingPassword())) {
+            result.rejectValue("password", "validate.password.mismatch", "密码不匹配！");
+            return "register";
+        }
+
         Optional<User> userOptional = users.findByUsernameIgnoreCase(userDto.getUsername());
 
         if (userOptional.isPresent()) {
-            result.rejectValue("username", "Username already exists.");
+            result.rejectValue("username", "validate.user.exists", "用户名已经存在！");
             return "register";
         }
 
@@ -94,8 +104,15 @@ public class UserController {
                 return false;
             return true;
         });
-
         model.addAttribute("orders", orderList);
+
+        List<GoodOrder> gorderList = gorders.findAllByOwner(user);
+        gorderList.removeIf(e -> {
+            if (e.getStatus() == GoodsOrderStatus.COMPLETED)
+                return true;
+            return false;
+        });
+        model.addAttribute("gorders", gorderList);
 
         return "user/info";
     }

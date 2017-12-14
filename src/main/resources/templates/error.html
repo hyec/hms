@@ -23,10 +23,24 @@
 <!--/*@thymesVar id="path" type="java.lang.String"*/-->
 <!--/*@thymesVar id="message" type="java.lang.String"*/-->
 <div class="container">
-    <span class="oops">Oops!</span><br/>
-    <img th:src="@{/images/error.jpg}"/>
-    <p>There seems to be a problem with the page you requested (). (<span th:text="${path}"></span>).</p>
-    <p th:text="${message}"></p>
+
+
+    <div class="row error-page">
+        <h1 class="oops"> Oops! </h1>
+        <img src="../static/images/error.jpg" th:src="@{/images/error.jpg}"/>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 col-md-offset-4">
+            <h4>您访问的页面出现了一些错误！
+                <small th:text="'(' + ${path} + ')'">(/asdasd/asdasd)</small>
+                .
+            </h4>
+            <h5>错误信息：</h5>
+            <h4 th:text="${message}">asdasdjhasdjkhaskdjhj</h4>
+        </div>
+    </div>
+
 </div>
 
 <footer th:replace="layout :: footer"></footer>

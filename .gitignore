@@ -1,5 +1,6 @@
 .gradle
 /build/
+/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -16,6 +17,7 @@
 *.iml
 *.ipr
 
+
 ### NetBeans ###
 nbproject/private/
 build/
@@ -25,4 +27,4 @@ nbdist/
 .nb-gradle/
 
 ### Private Images ###
-src/resources/static/images/author/
+/src/main/resources/static/images/author/

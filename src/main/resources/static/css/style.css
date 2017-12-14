@@ -844,6 +844,11 @@ and (max-width: 480px) {
     padding-top: 40px;
 }
 
+.form-login .switch {
+    color: black;
+    text-underline: none;
+}
+
 .form-login .form-login-heading {
     margin-bottom: 20px;
 }
@@ -874,4 +879,9 @@ and (max-width: 480px) {
 .form-login button {
     margin-top: 20px;
     margin-bottom: 40px;
+}
+
+.error-page {
+    padding: 40px 15px;
+    text-align: center;
 }

@@ -8,21 +8,21 @@ import javax.validation.constraints.NotNull;
 
 public class UserDto {
 
-    @NotEmpty
+    @NotEmpty(message = "用户名不能为空！")
     private String username;
 
-    @NotEmpty
+    @NotEmpty(message = "密码不能为空！")
     private String password;
     private String matchingPassword;
 
-    @NotEmpty
+    @NotEmpty(message = "姓名不能为空！")
     private String name;
 
-    @NotNull
+    @NotNull(message = "性别不能为空！")
     private Gender gender;
 
-    @NotEmpty
-    @ValidIDNum
+    @NotEmpty(message = "身份证号不能为空！")
+    @ValidIDNum(message = "身份证号格式不正确！")
     private String idNum;
 
     public String getUsername() {

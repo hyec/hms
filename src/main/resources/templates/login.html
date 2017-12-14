@@ -35,7 +35,7 @@
 <div class="container">
     <form class="form-login" th:action="@{/user/login}" th:method="post">
 
-        <h2 class="form-login-heading">登陆</h2>
+        <h2 class="form-login-heading">登陆 / <a class="switch" th:href="@{/user/register}">注册</a></h2>
 
         <div th:if="${#httpServletRequest.getParameter('error') != null}"
              class="alert alert-danger" role="alert">

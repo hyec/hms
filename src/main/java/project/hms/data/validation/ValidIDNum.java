@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = IDNumValidator.class)
 @Documented
-@Size(min = 18, max = 18)
+@Size(min = 18, max = 18, message = "身份证号位数应为18位！")
 public @interface ValidIDNum {
 
     String message() default "Wrong ID number.";

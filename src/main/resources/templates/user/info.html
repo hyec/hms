@@ -13,6 +13,7 @@
 <body id="page-top">
 <!--/*@thymesVar id="user" type="project.hms.model.User"*/-->
 <!--/*@thymesVar id="orders" type="java.util.List<project.hms.model.Order>"*/-->
+<!--/*@thymesVar id="gorders" type="java.util.List<project.hms.model.GoodOrder>"*/-->
 <nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
@@ -43,13 +44,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="type" class="col-sm-2 control-label">性别:</label>
+                            <label class="col-sm-2 control-label">性别:</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static" th:text="${user.gender}"></p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="idNum" class="col-sm-2 control-label">身份证:</label>
+                            <label class="col-sm-2 control-label">身份证:</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static" th:text="${user.idNum}"></p>
                             </div>
@@ -60,40 +61,42 @@
         </div>
     </div>
 
-
-    <div class="row" th:if="${orders.size() > 0}">
+    <div class="row">
         <div class="col-md-8">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">订单信息</h3>
                 </div>
-                <ul class="list-group" th:each="order : ${orders}">
+                <div class="panel-body" th:if="${orders.size() == 0}">
+                    <p>您还没有订单！</p>
+                </div>
+                <ul class="list-group" th:if="${orders.size() > 0}" th:each="order : ${orders}">
                     <li class="list-group-item">
                         <div class="form-horizontal">
 
                             <div class="form-group">
                                 <label for="username" class="col-sm-2 control-label">房间号:</label>
                                 <div class="col-sm-6">
-                                    <p id="username" class="form-control-static" th:text="${order.room.number}"></p>
+                                    <p class="form-control-static" th:text="${order.room.number}"></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">起止时间:</label>
                                 <div class="col-sm-6">
-                                    <p id="name" class="form-control-static"
+                                    <p class="form-control-static"
                                        th:text=" '' + ${order.checkInTime} + ' ~ ' + ${order.checkOutTime}"></p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="type" class="col-sm-2 control-label">状态:</label>
+                                <label class="col-sm-2 control-label">状态:</label>
                                 <div class="col-sm-6">
-                                    <p id="type" class="form-control-static" th:text="${order.status}"></p>
+                                    <p class="form-control-static" th:text="${order.status}"></p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="idNum" class="col-sm-2 control-label">价格:</label>
+                                <label class="col-sm-2 control-label">价格:</label>
                                 <div class="col-sm-6">
-                                    <p id="idNum" class="form-control-static" th:text="${order.price}"></p>
+                                    <p class="form-control-static" th:text="${order.price}"></p>
                                 </div>
                             </div>
 
@@ -104,6 +107,49 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">订餐信息</h3>
+                </div>
+                <div class="panel-body" th:if="${gorders.size() == 0}">
+                    <p>您还没有订餐！</p>
+                </div>
+                <ul class="list-group" th:if="${gorders.size() > 0}" th:each="gorder : ${gorders}">
+                    <li class="list-group-item">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label">金额:</label>
+                                <div class="col-sm-6">
+                                    <p id="username" class="form-control-static" th:text="${gorder.cost}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">内容:</label>
+                                <div class="col-sm-6">
+                                    <th:block th:each="ginclude : ${gorder.gincludes}">
+                                        <p id="name" class="form-control-static"
+                                           th:text=" '' + ${ginclude.good.name} + ' x ' + ${ginclude.amount}"></p>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a class="btn btn-default btn-lg btn-block" th:href="@{/user/logout}">退出登陆</a>
+        </div>
+    </div>
+
 
 </div>
 

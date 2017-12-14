@@ -31,9 +31,7 @@
             <li class="list-group-item">价格：<span th:text="${unpaidOrder.price}">你好</span></li>
         </ul>
 
-
-        <input type="button" class="btn btn-success" th:href="@{/order/confirmPay(id=${unpaidOrder.getId()})}"
-               value="支付">
+        <a class="btn btn-success" th:href="@{/order/confirmPay(id=${unpaidOrder.getId()})}">支付</a>
     </div>
 </div>
 

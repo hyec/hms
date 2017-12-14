@@ -93,7 +93,7 @@ public class OrderGoodsController {
         orders.removeIf(gorder -> !gorder.getStatus().equals(OrderStatus.CHECK_IN));
 
         if (orders.isEmpty()) {
-            throw new Exception("unavailble order");
+            throw new Exception("您需要先入住酒店才能订餐！");
         }
         goodOrder.setRoom(orders.get(0).getRoom());
 
