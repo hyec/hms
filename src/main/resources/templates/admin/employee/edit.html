@@ -21,26 +21,32 @@
 </nav>
 <!--/*@thymesVar id="employee" type="project.hms.model.Employee"*/-->
 <div class="container">
-    <form th:action="@{/admin/employee/edit}" th:method="post" th:object="${employee}">
+    <form th:action="@{/admin/employee/edit}" th:method="post" th:object="${employee}" class="form-horizontal">
 
         <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="performance" class="col-sm-2 control-label">绩效</label>
+            <div class="col-sm-6">
+                <input type="number" id="performance" th:field="*{performance}" class="form-control" required>
+            </div>
+        </div>
 
-
-        <label for="performance">绩效</label>
-        <input type="number" id="performance" th:field="*{performance}" required>
-
-
-        <label for="type">类型</label>
-        <select id="type" th:field="*{type}" required>
-            <option disabled hidden value="">请选择</option>
-            <option value="MANAGER">经理</option>
-            <option value="CLEANER">清洁工</option>
-            <option value="CASHIER">前台</option>
-        </select>
-
-
-        <button type="submit">提交</button>
-
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-6">
+                <select class="form-control" id="type" th:field="*{type}" required>
+                    <option disabled hidden value="">请选择</option>
+                    <option value="MANAGER">经理</option>
+                    <option value="CLEANER">清洁工</option>
+                    <option value="CASHIER">前台</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-default center-block">提交</button>
+            </div>
+        </div>
     </form>
 </div>
 
