@@ -21,30 +21,52 @@
 </nav>
 <!--/*@thymesVar id="room" type="project.hms.model.Room"*/-->
 <div class="container">
-    <form th:action="@{/admin/room/edit}" th:method="post" th:object="${room}">
+    <form th:action="@{/admin/room/edit}" th:method="post" th:object="${room}" class="form-horizontal">
 
         <input type="hidden" th:field="*{id}">
 
-        <label for="number">房号</label>
-        <input type="number" id="number" th:field="*{number}" required>
+        <div class="form-group">
+            <label for="number" class="col-sm-2 control-label">房号</label>
+            <div class="col-sm-6">
+                <input type="number" id="number" th:field="*{number}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">价格</label>
+            <div class="col-sm-6">
+                <input id="price" th:field="*{price}" class="form-control" required>
+            </div>
+        </div>
 
-        <label for="price">价格</label>
-        <input id="price" th:field="*{price}" required>
-
-        <label for="status">状态</label>
-        <input id="status" th:field="*{status}" required>
-
-        <label for="type">类型</label>
-        <select id="type" name="type" th:field="*{type}" required>
-            <option disabled hidden value="">请选择</option>
-            <option value="SINGLE">单人间</option>
-            <option value="DOUBLE">双人间</option>
-            <option value="FAMILY">家庭房</option>
-            <option value="KINGSIZE">大床房</option>
-        </select>
-
-        <button type="submit">提交</button>
-
+        <div class="form-group">
+            <label for="status" class="col-sm-2 control-label">状态</label>
+            <div class="col-sm-6">
+                <select id="status" class="form-control" th:field="*{status}" required>
+                    <option disabled hidden value="">请选择</option>
+                    <option value="EMPTY">未入住</option>
+                    <option value="OCCUPIED">占用</option>
+                    <option value="DIRTY">待清理</option>
+                    <option value="UNAVAIL">不可入住</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-6">
+                <select id="type" class="form-control" th:field="*{type}" required>
+                    <option disabled hidden value="">请选择</option>
+                    <option value="SINGLE">单人间</option>
+                    <option value="DOUBLE">双人间</option>
+                    <option value="FAMILY">家庭房</option>
+                    <option value="KINGSIZE">大床房</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-default center-block">提交</button>
+            </div>
+        </div>
     </form>
 </div>
 
