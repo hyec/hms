@@ -120,6 +120,7 @@ public class OrderGoodsController {
         return "good/paid";
 
     }
+
     @GetMapping("/paid")
     public String paid() {
         return "redirect:/";

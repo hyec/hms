@@ -44,8 +44,9 @@
             </table>
         </div>
     </div>
-    <input class="center-block btn btn-success" type="button"
-           th:href="@{/good/confirmPay(id=${unpaidGoodOrder.getId()})}" value="支付">
+    <a class="center-block btn btn-success"
+       th:href="@{/good/confirmPay(id=${unpaidGoodOrder.getId()})}">支付
+    </a>
 </div>
 
 <footer th:replace="layout :: footer"></footer>
