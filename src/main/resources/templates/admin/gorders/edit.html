@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:replace="layout :: head(~{::title}, ~{::style})">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>房间编辑</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../../static/css/style.css" rel="stylesheet">
+    <style></style>
+</head>
+<body id="page-top">
+
+<nav id="nav" class="navbar navbar-default navbar-static-top navbar-shrink" th:replace="layout :: nav_admin">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>登录</a></li>
+        </ul>
+    </div>
+</nav>
+<!--/*@thymesVar id="goodOrder" type="project.hms.model.GoodOrder"*/-->
+<div class="container">
+    <form th:action="@{/admin/gorders/edit}" th:method="post" th:object="${goodOrder}" class="form-horizontal">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label for="number" class="col-sm-2 control-label">编号</label>
+            <div class="col-sm-6">
+                <p id="number" class="form-control-static" th:text="${goodOrder.id}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">花费</label>
+            <div class="col-sm-6">
+                <p id="price" class="form-control-static" th:text="${goodOrder.cost}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">订房人</label>
+            <div class="col-sm-6">
+                <p id="name" class="form-control-static" th:text="${goodOrder.owner.name}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="number" class="col-sm-2 control-label">房间号</label>
+            <div class="col-sm-6">
+                <p id="number1" class="form-control-static" th:text="${goodOrder.room.number}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status" class="col-sm-2 control-label">状态</label>
+            <div class="col-sm-6">
+                <select id="status" class="form-control" th:field="*{status}" required>
+                    <option disabled hidden value="">请选择</option>
+                    <option value="UNPAID">未支付</option>
+                    <option value="PAID">已支付</option>
+                    <option value="COMPLETED">已完成</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-default center-block">提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
+
+<th:block th:replace="layout :: scripts"/>
+</body>
+</html>
