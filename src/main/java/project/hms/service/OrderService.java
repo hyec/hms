@@ -24,6 +24,13 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * 根据传入的条件寻找符合的房间并返回
+     *
+     * @param type  房型
+     * @param start 入住时间
+     * @param end   退房时间
+     */
     public List<Room> getAvailableRooms(RoomType type, Date start, Date end) {
         Calendar cal = Calendar.getInstance();
 
