@@ -1,7 +1,5 @@
 package project.hms.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import project.hms.model.Order;
@@ -16,19 +14,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-
+/**
+ * 定时任务服务
+ */
 @Component
-public class schedulerService {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class SchedulerService {
     private final OrderRepository orderRepository;
     private final RoomRepository roomRepository;
 
-    public schedulerService(OrderRepository orderRepository, RoomRepository roomRepository) {
+    public SchedulerService(OrderRepository orderRepository, RoomRepository roomRepository) {
         this.orderRepository = orderRepository;
         this.roomRepository = roomRepository;
     }
 
-    @Scheduled(cron = "0 26 11 * * ?")
+    /**
+     * 定时执行的函数，用于每天12点自动将订单退房日期为今天的订单设置为完成状态，房间设置为等待打扫
+     */
+    @Scheduled(cron = "0 0 12 * * ?")
     public void testTasks() {
         List<Order> orders = orderRepository.findAll();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

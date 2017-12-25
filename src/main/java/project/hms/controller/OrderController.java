@@ -20,6 +20,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 用户订单界面系统的controller
+ */
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -29,6 +32,7 @@ public class OrderController {
     private final OrderRepository orderRepository;
 
     private final OrderService orderService;
+
     @Autowired
     public OrderController(UserRepository userRepository,
                            OrderRepository orderRepository,
@@ -38,12 +42,18 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    /**
+     * 返回get请求创建订单的页面
+     */
     @GetMapping("/new")
     public String newGET(@ModelAttribute OrderDto orderDto) {
         return "order/newOrder";
     }
 
-
+    /**
+     * 通过定义的orderDto,接受用户填写的创建订单所需要的参数
+     * 判断是否有符合住户要求的房间，若有则生成订单并跳转到支付页面，否则跳转到订房失败页面
+     */
     @PostMapping("/new")
     public String newPOST(@Valid OrderDto orderDto, BindingResult result,
                           Principal principal, Model model) throws Exception {
@@ -76,6 +86,11 @@ public class OrderController {
         return "order/pay";
     }
 
+    /**
+     * 用于选房时ajax判断是否有符合条件的房间
+     *
+     * @return 返回符合条件的房间数量，-1代表没有可用房间
+     */
     @PostMapping("/searchroom")
     @ResponseBody
     public String searchRoom(@Valid OrderDto orderDto, BindingResult result) throws Exception {
@@ -89,6 +104,9 @@ public class OrderController {
         return availableRooms.size() + "";
     }
 
+    /**
+     * 当用户支付订单后，将订单的状态修改为已支付
+     */
     @GetMapping("/confirmPay")
     public String confirmPay(@RequestParam(value = "id") int id) throws Exception {
         Optional<Order> orderOptional = orderRepository.findById(id);
