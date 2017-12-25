@@ -33,7 +33,6 @@ public class AdminEmployeeController {
 
     /**
      * 这个函数展示了雇员的列表
-     *
      * @return 雇员列表
      */
     @GetMapping({"", "/"})
@@ -44,7 +43,6 @@ public class AdminEmployeeController {
 
     /**
      * 针对employee list 的访问请求 在list函数中向model 中加入 一个employee类型的list进行绑定，方便在thymeleaf中使用th:each进行每一个employee对象的信息输出（还包含新建，编辑employee方法）
-     * @param model 模型
      * @return 雇员列表
      */
     @GetMapping("/list")
@@ -57,7 +55,6 @@ public class AdminEmployeeController {
     /**
      * 针对特定employee对象的信息访问 在info函数中请求使用注释在url中获得id对象，使用repository找到对象进行绑定，方便在thymeleaf中对特定employee对象进行信息输出
      * @param id 雇员id
-     * @param model 模型
      * @return 雇员信息界面
      * @throws Exception 不存在对应的雇员
      */
@@ -78,7 +75,6 @@ public class AdminEmployeeController {
     /**
      * 针对特定employee对象的信息更改访问请求 在edit函数中使用注释在url中获得id对象，若存在该对象则绑定该对象，不存在则绑定一个新对象，在edit界面中填写各个信息后进行employee 对象 post
      * @param id 雇员id
-     * @param model 模型
      * @return 雇员信息编辑界面
      * @throws Exception 不存在对应的雇员
      */
