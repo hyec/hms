@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import project.hms.service.AuthorizeService;
 
+/**
+ * Spring Security的配置信息
+ */
 @EnableWebSecurity
 public class MultiHttpSecurityConfig {
 
@@ -25,11 +28,17 @@ public class MultiHttpSecurityConfig {
 //        return userService;
 //    }
 
+    /**
+     * 设置密码字段加密方式
+     */
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authorizeService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
+    /**
+     * Web安全的配置信息
+     */
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
     public static class SecurityConfig extends WebSecurityConfigurerAdapter {

@@ -4,28 +4,52 @@ import project.hms.model.enums.Gender;
 
 import javax.persistence.*;
 
+/**
+ * 数据库用户模型
+ */
 @Entity
 @Table(name = "users")
 public class User extends Base {
 
+    /**
+     * 用户名
+     */
     @Column(length = 64, unique = true, nullable = false)
     private String username;
 
+    /**
+     * 密码
+     */
     @Column(length = 64, nullable = false)
     private String password;
 
+    /**
+     * 姓名
+     */
     @Column(length = 64)
     private String name;
 
+    /**
+     * 性别
+     */
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
     private Gender gender;
 
+    /**
+     * 身份证号
+     */
     @Column(length = 18, unique = true, nullable = false)
     private String idNum;
 
+    /**
+     * 积分
+     */
     private int integration = 0;
 
+    /**
+     * 对应员工，可空
+     */
     @OneToOne(mappedBy = "user")
     private Employee employee;
 

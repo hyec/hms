@@ -8,6 +8,10 @@ import project.hms.util.Authority;
 
 import java.util.Collection;
 
+/**
+ * 用户信息，用于View验证用户身份
+ */
+@SuppressWarnings("unused")
 public class UserInfo {
 
     private String username;

@@ -10,6 +10,12 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * 身份证号验证注解
+ *
+ * @see IDNumValidator
+ * @see project.hms.data.dto.UserDto
+ */
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = IDNumValidator.class)

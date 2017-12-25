@@ -8,6 +8,9 @@ import project.hms.model.User;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * 用户角色工具库
+ */
 public class Authority {
 
     public static GrantedAuthority USER_ROLE = new SimpleGrantedAuthority("ROLE_USER");
@@ -15,6 +18,12 @@ public class Authority {
     public static GrantedAuthority CASHIER_ROLE = new SimpleGrantedAuthority("ROLE_CASHIER");
     public static GrantedAuthority MANAGER_ROLE = new SimpleGrantedAuthority("ROLE_MANAGER");
 
+    /**
+     * 根据用户生成权限集合
+     *
+     * @param user 用户
+     * @return 权限集合
+     */
     public static Collection<GrantedAuthority> getAuthorities(User user) {
         Collection<GrantedAuthority> authorities = new LinkedList<>();
 

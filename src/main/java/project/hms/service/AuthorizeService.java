@@ -22,6 +22,14 @@ public class AuthorizeService implements UserDetailsService {
         this.userRepository = users;
     }
 
+    /**
+     * 根据用户名获得用户认证信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     * @throws UsernameNotFoundException 用户不存在
+     * @see Authority
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

@@ -5,10 +5,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * 认证信息，用于Spring Security用户认证
+ */
 public class UserDetail implements UserDetails {
 
+    /**
+     * 用户名
+     */
     private String username;
+
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 权限列表
+     */
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetail(String username, String password, Collection<? extends GrantedAuthority> authorities) {

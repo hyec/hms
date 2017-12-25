@@ -9,11 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+/**
+ * 数据库模型基类
+ */
 @MappedSuperclass
 @DynamicUpdate
 @DynamicInsert
 public class Base implements Serializable {
 
+    /**
+     * 数据库id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

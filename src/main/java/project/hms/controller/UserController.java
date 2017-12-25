@@ -25,6 +25,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 用户界面控制器
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -40,22 +43,36 @@ public class UserController {
         this.gorders = gorders;
     }
 
+    /**
+     * 用户页首页，跳转到用户个人信息
+     */
     @GetMapping({"", "/"})
     @PreAuthorize("isAuthenticated()")
     public String index() {
         return "redirect:/user/info";
     }
 
+    /**
+     * 用户登陆页，返回登陆页模板
+     */
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * 用户注册页，返回注册页模板
+     */
     @GetMapping("/register")
     public String register(UserDto userDto) {
         return "register";
     }
 
+    /**
+     * 用户注册POST响应，验证表单和去重，并将用户信息插入到数据库
+     *
+     * @param userDto 用户注册的表单
+     */
     @PostMapping("/register")
     public String registerPOST(@Valid UserDto userDto, BindingResult result) {
         if (result.hasErrors()) {
@@ -88,6 +105,11 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    /**
+     * 用户信息页，显示用户信息和未完成订单与订餐信息
+     *
+     * @param principal 用户认证信息
+     */
     @GetMapping("/info")
     @PreAuthorize("isAuthenticated()")
     public String info(Principal principal, Model model) {
@@ -117,6 +139,10 @@ public class UserController {
         return "user/info";
     }
 
+    /**
+     * 用户个人信息编辑
+     * @param principal 用户认证信息
+     */
     @GetMapping("/edit")
     @PreAuthorize("isAuthenticated()")
     public String edit(Principal principal, Model model) {
@@ -124,7 +150,11 @@ public class UserController {
         return "user/edit";
     }
 
-
+    /**
+     * 用户信息编辑POST响应
+     * @param user 用户信息表单
+     * @param principal 用户认证信息
+     */
     @PostMapping("/edit")
     @PreAuthorize("isAuthenticated()")
     public String editPOST(@Valid User user, BindingResult result,

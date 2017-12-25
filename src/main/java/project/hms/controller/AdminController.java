@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import project.hms.model.User;
 import project.hms.repository.UserRepository;
 
-import java.util.List;
-
+/**
+ * 后台首页控制器
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -21,15 +20,12 @@ public class AdminController {
         this.users = users;
     }
 
+    /**
+     * 首页
+     */
     @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/user/list";
-    }
-
-    @GetMapping("/users")
-    @ResponseBody
-    public List<User> userList() {
-        return users.findAll();
     }
 
 }

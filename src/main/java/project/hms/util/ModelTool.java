@@ -5,8 +5,19 @@ import project.hms.model.Base;
 
 import java.lang.reflect.Field;
 
+/**
+ * 模型工具类
+ */
 public class ModelTool {
 
+    /**
+     * 合并两个模型实例
+     * 将to中的空属性赋值为from总的对应属性
+     *
+     * @param from 源变量
+     * @param to   目标变量
+     * @param <T>  模型类
+     */
     public static <T extends Base> void merge(T from, T to) {
         Assert.notNull(from, "from is null");
         Assert.notNull(to, "to is null");
@@ -17,7 +28,6 @@ public class ModelTool {
         Field[] fields = clazz.getDeclaredFields();
 
         for (Field f : fields) {
-
             if (f.getName().equals("id"))
                 continue;
 
@@ -30,9 +40,7 @@ public class ModelTool {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
 }
