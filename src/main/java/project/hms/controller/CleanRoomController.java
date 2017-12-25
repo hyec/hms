@@ -13,6 +13,9 @@ import project.hms.repository.RoomRepository;
 
 import java.util.Optional;
 
+/**
+ * 打扫房间的controller
+ */
 @Controller
 @RequestMapping("/admin")
 public class CleanRoomController {
@@ -23,6 +26,9 @@ public class CleanRoomController {
         this.roomRepository = roomRepository;
     }
 
+    /**
+     * 列出房间信息
+     */
     @GetMapping("/clean")
     @Secured({"ROLE_CLEANER", "ROLE_CASHIER", "ROLE_MANAGER"})
     public String clean(RedirectAttributes redirectAttributes) {
@@ -31,6 +37,11 @@ public class CleanRoomController {
         return "redirect:/admin/room/list";
     }
 
+    /**
+     * 将修改状态后的房间信息替换原数据库中的信息
+     *
+     * @param id 房间的id
+     */
     @PostMapping("/clean")
     @Secured({"ROLE_CLEANER", "ROLE_CASHIER", "ROLE_MANAGER"})
     public String cleanPOST(@RequestParam("room") Integer[] id) {

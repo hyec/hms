@@ -21,6 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 订餐的controller
+ */
 @Controller
 @RequestMapping("/good")
 public class OrderGoodsController {
@@ -38,12 +41,18 @@ public class OrderGoodsController {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * 返回订餐的界面
+     */
     @GetMapping("/order")
     public String order(Model model) {
         model.addAttribute("goods", goodRepository.findAll());
         return "good/order";
     }
 
+    /**
+     * 将订单信息存入数据库
+     */
     @PostMapping("/order")
     public String orderPOST(HttpServletRequest req, Principal principal, Model model) throws Exception {
 
@@ -106,6 +115,11 @@ public class OrderGoodsController {
         return "good/pay";
     }
 
+    /**
+     * 确认支付，将订单信息修改为已支付
+     *
+     * @param id 订单id
+     */
     @GetMapping("/confirmPay")
     public String pay(@RequestParam(value = "id") Integer id) throws Exception {
         Optional<GoodOrder> GoodOrderOptional = goodOrderRepository.findById(id);
@@ -121,6 +135,9 @@ public class OrderGoodsController {
 
     }
 
+    /**
+     * 返回主页
+     */
     @GetMapping("/paid")
     public String paid() {
         return "redirect:/";
