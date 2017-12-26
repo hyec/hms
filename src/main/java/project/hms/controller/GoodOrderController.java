@@ -16,6 +16,9 @@ import project.hms.util.ModelTool;
 import javax.validation.Valid;
 import java.util.Optional;
 
+/**
+ * 商品订单的controller
+ */
 @Controller
 @RequestMapping("/admin/gorders")
 public class GoodOrderController {
@@ -25,6 +28,9 @@ public class GoodOrderController {
         this.goodOrderRepository = goodOrderRepository;
     }
 
+    /**
+     * 返回商品订单的列表
+     */
     @GetMapping("/list")
     @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String list(Model model) {
@@ -32,6 +38,11 @@ public class GoodOrderController {
         return "admin/gorders/list";
     }
 
+    /**
+     * 返回对应id的商品订单的信息
+     *
+     * @param id 商品订单的id
+     */
     @GetMapping("/info")
     @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id,
@@ -46,6 +57,10 @@ public class GoodOrderController {
         return "admin/gorders/info";
     }
 
+    /**
+     * 编辑对应id的商品订单信息
+     * @param id 商品订单的id
+     */
     @GetMapping("/edit")
     @Secured({"ROLE_MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
@@ -66,6 +81,10 @@ public class GoodOrderController {
         return "admin/gorders/edit";
     }
 
+    /**
+     * 将修改后的商品订单信息替换原数据库中的商品订单信息
+     * @param goodOrder 修改后的商品订单信息
+     */
     @PostMapping("/edit")
     @Secured({"ROLE_MANAGER"})
     public String editPOST(@Valid GoodOrder goodOrder, BindingResult result) {
