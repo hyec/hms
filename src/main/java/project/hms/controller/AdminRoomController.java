@@ -15,6 +15,9 @@ import project.hms.util.ModelTool;
 import javax.validation.Valid;
 import java.util.Optional;
 
+/**
+ * 这是一个关于房间的列表查看，具体房间信息查看，具体房间信息编辑的类
+ */
 @Controller
 @RequestMapping("/admin/room")
 public class AdminRoomController {
@@ -26,11 +29,21 @@ public class AdminRoomController {
         this.repository = repository;
     }
 
+    /**
+     * 这个函数展示了房间的列表
+     *
+     * @return 房间列表页面
+     */
     @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/room/list";
     }
 
+    /**
+     * 这个函数展示了房间的列表
+     * @param selectDto 选择信息表单
+     * @return 房间列表页面
+     */
     @GetMapping("/list")
     @Secured({"ROLE_CLEANER", "ROLE_CASHIER", "ROLE_MANAGER"})
     public String list(@ModelAttribute SelectDto selectDto, Model model) {
@@ -43,6 +56,12 @@ public class AdminRoomController {
         return "admin/room/list";
     }
 
+    /**
+     * 展示具体房间信息
+     * @param id 房间id
+     * @return 具体房间信息页面
+     * @throws Exception 当具有这个id的房间不存在时抛出
+     */
     @GetMapping("/info")
     @Secured({"ROLE_CASHIER", "ROLE_MANAGER"})
     public String info(@RequestParam("id") Integer id,
@@ -57,7 +76,12 @@ public class AdminRoomController {
         return "admin/room/info";
     }
 
-
+    /**
+     * 展示具体房间信息编辑界面
+     * @param id 房间id
+     * @return 具体房间编辑界面
+     * @throws Exception 当id不为空且不存在具有这个id的房间时抛出
+     */
     @GetMapping("/edit")
     @Secured({"ROLE_MANAGER"})
     public String edit(@RequestParam(value = "id", required = false) Integer id,
@@ -78,6 +102,12 @@ public class AdminRoomController {
         return "admin/room/edit";
     }
 
+    /**
+     * 获得被编辑的房间并展示编辑后的房间信息
+     * @param room 被编辑的房间实体
+     * @param result 检查结果
+     * @return 被编辑后的信息界面
+     */
     @PostMapping("/edit")
     @Secured({"ROLE_MANAGER"})
     public String editPOST(@Valid Room room, BindingResult result) {
