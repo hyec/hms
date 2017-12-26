@@ -10,6 +10,9 @@ import project.hms.service.AuthorizeService;
 
 import java.security.Principal;
 
+/**
+ * 全局控制器附加信息
+ */
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -21,6 +24,11 @@ public class GlobalControllerAdvice {
         this.authorizeService = authorizeService;
     }
 
+    /**
+     * 为所有view添加用户信息
+     *
+     * @param principal 用户认证信息
+     */
     @ModelAttribute("userInfo")
     public UserInfo userInfo(Principal principal) {
 
@@ -37,7 +45,6 @@ public class GlobalControllerAdvice {
         }
 
         return new UserInfo(userDetails);
-
     }
 
 }

@@ -8,6 +8,9 @@ import project.hms.model.enums.RoomType;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 房间仓库类
+ */
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     /**
      * 按id查找房间
